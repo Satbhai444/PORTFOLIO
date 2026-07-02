@@ -1,0 +1,209 @@
+/* ═══════════════════════════════════ */
+/*          CONTACT HERO              */
+/* ═══════════════════════════════════ */
+.contact-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-dark);
+  overflow: hidden;
+  padding: 6rem 2rem 4rem;
+}
+
+/* Background marquee */
+.contact-bg-marquee {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Floating white card */
+.contact-form-card {
+  position: relative;
+  z-index: 2;
+  background: #fff;
+  border-radius: 2rem;
+  padding: 3.5rem;
+  width: min(640px, 90vw);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  color: #111;
+}
+
+.contact-intro-text {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.7;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+
+/* Light-theme form inside white card */
+.contact-form-light .form-field label {
+  color: #888;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.contact-form-light .form-field input,
+.contact-form-light .form-field textarea {
+  color: #111;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.contact-form-light .form-field input::placeholder,
+.contact-form-light .form-field textarea::placeholder {
+  color: rgba(0, 0, 0, 0.25);
+}
+
+.contact-form-light .form-field input:focus,
+.contact-form-light .form-field textarea:focus {
+  border-bottom-color: #111;
+}
+
+/* Submit button */
+.contact-submit-btn {
+  width: 100%;
+  padding: 1rem;
+  background: #111;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.25s, transform 0.25s;
+  font-family: var(--font-main);
+}
+.contact-submit-btn:hover:not(:disabled) { background: #333; transform: translateY(-2px); }
+.contact-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.contact-submit-btn.btn-error { background: #ff4444; }
+
+@media (max-width: 600px) {
+  .contact-form-card { padding: 2rem 1.5rem; border-radius: 1.25rem; }
+}
+
+/* ═══════════════════════════════════ */
+/*          CONTACT FORM              */
+/* ═══════════════════════════════════ */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.btn-error {
+  background: #ff4444 !important;
+  color: #fff !important;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-field label {
+  font-size: 0.7rem;
+}
+
+.form-field input,
+.form-field textarea {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-light);
+  padding: 1rem 0;
+  font-size: 1rem;
+  color: white;
+  font-family: var(--font-main);
+  outline: none;
+  transition: border-color 0.3s ease;
+  resize: none;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: rgba(255,255,255,0.25);
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  border-color: white;
+}
+
+/* ═══════════════════════════════════ */
+/*          CONTACT FAQ               */
+/* ═══════════════════════════════════ */
+.contact-faq {
+  background: var(--bg-dark);
+  border-top: 1px solid var(--border-light);
+}
+
+.contact-faq .faq-list {
+  border-top: 1px solid var(--border-light);
+}
+
+.contact-faq .faq-item {
+  border-bottom: 1px solid var(--border-light);
+}
+
+.contact-faq .faq-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1.75rem 0;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.125rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-main);
+}
+
+.contact-faq .faq-top:hover {
+  opacity: 0.8;
+}
+
+.contact-faq .faq-bottom {
+  overflow: hidden;
+}
+
+.contact-faq .faq-bottom p {
+  padding-bottom: 1.75rem;
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 700px;
+}
+
+/* ═══════════════════════════════════ */
+/*            RESPONSIVE              */
+/* ═══════════════════════════════════ */
+@media (max-width: 768px) {
+  .contact-hero {
+    padding-top: 8rem;
+    padding-bottom: 3rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}

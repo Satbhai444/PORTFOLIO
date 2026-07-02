@@ -1,0 +1,159 @@
+# SeizeFire Project & Internship Report
+
+## 1. Project Name
+**SeizeFire** (A Premium Minimalist Fashion E-Commerce Application)
+
+## 2. One Line Summary
+SeizeFire is a cross-platform luxury streetwear e-commerce application built using Flutter and Firebase, designed to offer a seamless shopping experience from product discovery to checkout.
+
+## 3. Detailed Description
+SeizeFire is a modern, high-performance mobile application catering to the minimalist luxury fashion segment. Originally conceptualized in React Native and later migrated to Flutter for superior performance and native-like feel, the app serves as a complete digital storefront. It allows users to browse new arrivals, filter apparel by categories (Cargo Pants, T-shirts, Joggers, etc.), manage a personal wishlist, add items to a shopping bag, and place orders securely. Behind the scenes, it utilizes Google Firebase for real-time data synchronization, secure user authentication, and order management, offering both standard user privileges and an exclusive Admin dashboard for business management.
+
+## 4. Features
+
+**Completed Features:**
+- **Secure Authentication:** Email and password-based sign up and login via Firebase Auth.
+- **Dynamic Routing:** Deep linking and route protection ensuring only authenticated users access the storefront.
+- **Role-Based Access:** Automatic identification of Admin users based on predefined email lists, unlocking the Admin Dashboard.
+- **Product Catalog:** Real-time fetching and displaying of products in a responsive masonry grid and carousel slider.
+- **Category Filtering:** Horizontal scrollable chips to instantly filter the catalog by apparel type.
+- **Shopping Cart (Bag):** Local state management for cart items, allowing quantity adjustments and total price calculation.
+- **Wishlist:** Quick toggle to save favorite items for later viewing.
+- **Order Management:** Checkout flow with shipping details, generating formatted order summaries, and a dedicated 'My Orders' history screen.
+- **Admin Capabilities:** A dedicated dashboard for admins to oversee all customer orders and platform metrics.
+
+**Partially Implemented/Future Features:**
+- **Payment Gateway Integration:** Currently, the checkout flow simulates a successful order placement. Real payment routing (e.g., Razorpay/Stripe) is pending.
+- **Push Notifications:** The UI for notification settings is built, but Firebase Cloud Messaging (FCM) integration is required for actual delivery.
+- **Social Login:** Google and Apple login buttons exist on the UI but are awaiting OAuth configuration on the Firebase console.
+
+## 5. User Flow
+1. **Onboarding:** The user opens the app and lands on the Welcome Screen showcasing a luxury image mosaic.
+2. **Authentication:** The user clicks "Create Account" or "Sign In", enters their credentials, and is authenticated via Firebase. (Alternatively, "Continue as Guest" allows limited browsing).
+3. **Discovery:** The user lands on the Home Screen, viewing a hero slider of featured products and a categorized grid of new arrivals.
+4. **Interaction:** The user taps a product to view the Product Detail Screen, selects their preferred size and color, and taps "Add to Bag", or taps the heart icon to save it to their Wishlist.
+5. **Checkout:** The user navigates to the Cart, reviews their selected items and total cost, and taps "Proceed to Checkout".
+6. **Fulfillment:** The user enters their shipping address on the Shipping Screen and taps "Place Order", landing on the Order Success screen.
+7. **Tracking:** The user can visit their Profile -> My Orders to view the status of their recent purchases.
+
+## 6. Screens and Pages
+1. **WelcomeScreen:** First-touch landing page with brand aesthetic and auth routing options.
+2. **LoginScreen:** Handles both Sign In and Sign Up states, collecting user credentials.
+3. **HomeScreen:** The primary storefront featuring auto-sliding hero banners, category filters, and product grids.
+4. **ProductDetailScreen:** Displays high-resolution imagery, product descriptions, pricing, and size/color selectors.
+5. **CartScreen:** Lists items intended for purchase with quantity steppers and price summaries.
+6. **ShippingScreen:** Collects user delivery address, phone number, and confirms the final order placement.
+7. **OrderSuccessScreen:** Visual confirmation that an order has been successfully logged in the database.
+8. **WishlistScreen:** A grid view of all products the user has favorited.
+9. **ProfileScreen:** Displays user details and provides navigation to orders, settings, and logout functionality.
+10. **MyOrdersScreen:** Fetches past orders from Firebase. If the user is an admin, it fetches *all* global orders.
+11. **AdminDashboardScreen:** Exclusive to admin emails; provides platform oversight and order fulfillment tracking.
+12. **Settings (Misc):** Informational screens including Notifications, Privacy Policy, Terms of Service, and Edit Profile.
+
+## 7. Architecture
+- **Folder Structure:** Feature-driven architecture separating UI from business logic.
+  - `/lib/core/` - Constants, themes, and configuration (e.g., AppColors, AppText).
+  - `/lib/models/` - Data models (ProductModel, OrderModel) with JSON serialization.
+  - `/lib/navigation/` - GoRouter configuration handling all app routing and redirects.
+  - `/lib/providers/` - Riverpod Notifiers (AuthNotifier, ShopNotifier) handling state and Firebase communication.
+  - `/lib/screens/` - Organized by domain (`/auth`, `/user`, `/admin`).
+- **State Management:** **Riverpod** is used extensively. `authProvider` manages the user session, while `shopProvider` manages cart state, wishlist state, and streams product/order data.
+- **Navigation:** **GoRouter** provides declarative routing, enabling nested navigation and auth-based route guarding.
+- **Database/Storage:** **Firebase Firestore** stores `user_profiles`, `products`, and `orders`. Images are loaded via URLs and cached locally.
+
+## 8. Dependencies
+- `flutter_riverpod`: For robust, predictable, and scalable state management.
+- `go_router`: For declarative routing, deep linking, and navigation guards.
+- `firebase_core`, `firebase_auth`, `cloud_firestore`: The backend-as-a-service stack providing authentication and real-time NoSQL database capabilities.
+- `cached_network_image`: Crucial for an e-commerce app to load product images smoothly and cache them locally to save bandwidth.
+- `google_fonts`: Used to fetch premium typography (e.g., Epilogue) to match the luxury aesthetic.
+- `intl`: For formatting currency (₹) and dates.
+
+## 9. Data Flow
+1. **Initialization:** The app launches and `main.dart` initializes Firebase. ProviderScope wraps the app.
+2. **Auth Stream:** `AuthNotifier` listens to Firebase Auth state changes. Upon login, it fetches the user's document from the `user_profiles` Firestore collection and updates the app state.
+3. **Data Hydration:** Once authenticated, `ShopNotifier` triggers asynchronous fetches for `products` and user-specific `orders` from Firestore, caching them in the local Riverpod state.
+4. **User Action:** When a user adds an item to the cart, the local state in `ShopNotifier` is updated synchronously for immediate UI feedback.
+5. **Database Write:** Upon checking out, `ShopNotifier` constructs an `OrderModel` and performs an async write to the `orders` Firestore collection. Upon success, the local cart is cleared.
+
+## 10. Current Status
+- **Completion Percentage:** ~90%
+- **Pending/Missing Features:** 
+  - Payment gateway integration.
+  - Push notification integration.
+  - OAuth social logins (Google/Apple).
+- **Bugs/Issues:** The app previously suffered from Gradle build caching issues and a Firestore 'Permission Denied' error due to a disabled API on the Google Cloud Console, which was identified and resolved during deployment.
+
+## 11. Technologies Used
+- **Frontend Framework:** Flutter (Dart)
+- **Backend Services:** Google Firebase (Auth, Firestore)
+- **State Management:** Riverpod
+- **Routing:** GoRouter
+- **IDE/Tools:** VS Code, Android Studio, Gradle, ADB
+- **Design Paradigm:** Material Design 3, customized for a minimalist aesthetic
+
+---
+
+## 12. Internship Report Content
+
+### Introduction
+The modern retail landscape demands a seamless transition from physical to digital storefronts. During this internship, I was tasked with developing "SeizeFire", a premium streetwear e-commerce application. The goal was to deliver a high-performance, visually stunning mobile application that mimics the quality of top-tier fashion brands while providing a robust backend for order management.
+
+### Objective
+To build a scalable, cross-platform mobile application using Flutter and Firebase that allows users to browse products, manage a cart, place orders, and allows administrators to oversee the platform, ensuring a smooth and responsive user experience.
+
+### Problem Statement
+Traditional fashion e-commerce apps often suffer from slow image loading, complex navigation, and poor state management leading to lost carts or failed checkouts. Furthermore, migrating an existing codebase (React Native) to a more performant framework (Flutter) while shifting the backend from Supabase to Firebase presented significant architectural challenges.
+
+### Methodology
+An Agile development approach was adopted. The project was divided into logical sprints:
+1. **UI/UX Replication:** Translating existing designs and React Native components into pixel-perfect Flutter widgets using standard Material components and Google Fonts.
+2. **State Management Setup:** Implementing Riverpod to create a reactive, unidirectional data flow, separating UI code from business logic.
+3. **Backend Integration:** Configuring Firebase Authentication and Firestore, defining data models, and wiring up the Provider layer to perform CRUD operations.
+4. **Refinement & Testing:** Implementing GoRouter for navigation, optimizing image loading with caching, and resolving build and API permission errors.
+
+### Features
+*(Refer to Section 4 for the comprehensive list of features implemented, including Authentication, Product Catalog, Cart, Wishlist, and Admin capabilities).*
+
+### Future Scope
+The application is poised for real-world deployment. Future enhancements will include integrating a payment gateway like Stripe or Razorpay to process real transactions, implementing Firebase Cloud Messaging for order status alerts, and utilizing Firebase Analytics to track user engagement and optimize the storefront.
+
+### Conclusion
+The development of SeizeFire provided invaluable hands-on experience in full-stack mobile development. It demonstrated the power of Flutter in creating beautiful, high-performance UIs, the efficiency of Riverpod in managing complex application states, and the reliability of Firebase as a backend solution. The project successfully met its objectives, resulting in a production-ready application structure.
+
+---
+
+## 13. Log Report Activities (30-Day Internship Log)
+
+| Day | Date | Activity Performed |
+|:---|:---|:---|
+| **Day 1** | | Project onboarding. Reviewed existing React Native UI designs and Supabase database structure. |
+| **Day 2** | | Initialized new Flutter project. Cleaned up default code and configured `pubspec.yaml` with core dependencies. |
+| **Day 3** | | Defined project folder structure (core, models, providers, screens, navigation). Set up global theme and `AppColors`. |
+| **Day 4** | | Created Dart data models (`ProductModel`, `OrderModel`, `CartItemModel`) with JSON serialization logic. |
+| **Day 5** | | Configured `GoRouter` for declarative routing and defined all application route constants. |
+| **Day 6** | | Built the `WelcomeScreen` UI, implementing a responsive masonry grid for product imagery. |
+| **Day 7** | | Built the `LoginScreen` UI with form validation, toggleable auth modes, and social login buttons. |
+| **Day 8** | | Integrated Firebase into the Flutter project. Generated `firebase_options.dart` using FlutterFire CLI. |
+| **Day 9** | | Developed `AuthProvider` using Riverpod to handle Firebase Authentication (Sign up, Log in, Sign out). |
+| **Day 10** | | Linked `LoginScreen` forms to `AuthProvider`. Tested user creation and handled Firebase Auth exceptions. |
+| **Day 11** | | Implemented Auth Guards in `GoRouter` to automatically redirect unauthenticated users away from protected screens. |
+| **Day 12** | | Designed the `HomeScreen` UI. Implemented the auto-sliding hero banner using `PageView`. |
+| **Day 13** | | Built the product grid view and category filter chips on the `HomeScreen`. |
+| **Day 14** | | Created the `ShopProvider` (Riverpod) to manage local product, cart, and wishlist state. |
+| **Day 15** | | Developed the `ProductDetailScreen` UI with size/color selectors and hero image animations. |
+| **Day 16** | | Wired the `ProductDetailScreen` "Add to Bag" button to the `ShopProvider` cart state. |
+| **Day 17** | | Built the `CartScreen` UI. Implemented dynamic total price calculation and item quantity steppers. |
+| **Day 18** | | Built the `WishlistScreen` UI. Added logic to toggle product favorite status globally across screens. |
+| **Day 19** | | Developed the `ShippingScreen` UI with form validation for address and contact details. |
+| **Day 20** | | Connected `ShopProvider` to Firebase Firestore. Wrote logic to push completed orders to the `orders` collection. |
+| **Day 21** | | Built the `OrderSuccessScreen` and `MyOrdersScreen`. Wrote Firestore queries to fetch user-specific order history. |
+| **Day 22** | | Designed the `ProfileScreen` UI. Added dynamic data rendering based on the currently logged-in user. |
+| **Day 23** | | Implemented Admin Role Logic. Configured `env_config.dart` to grant admin access to specific emails. |
+| **Day 24** | | Built the `AdminDashboardScreen` UI. Wrote logic to fetch all global orders for admin review. |
+| **Day 25** | | Created secondary informational screens (Settings, Privacy Policy, Terms, Notifications). |
+| **Day 26** | | Replaced standard image widgets with `CachedNetworkImage` across all screens for bandwidth optimization. |
+| **Day 27** | | Conducted end-to-end testing. Identified and resolved a Gradle build cache corruption issue (`flutter clean`). |
+| **Day 28** | | Debugged an infinite loading issue on Signup, traced it to disabled Firestore API on the Google Cloud Console. |
+| **Day 29** | | Refactored nullable DateTime issues and user ID mappings caused during the Supabase to Firebase migration. |
+| **Day 30** | | Final code review, added inline documentation, formatted codebase, and compiled final project report. |

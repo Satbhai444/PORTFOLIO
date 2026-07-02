@@ -1,0 +1,264 @@
+# Lumina Fitness: Flutter Application Analysis & Internship Report
+
+This document contains a comprehensive analysis of the `home_workout_app` project (branded as **Lumina Fitness**). The report is structured to fulfill college internship documentation requirements, including architectural deep-dives, screen catalogs, and log activities.
+
+---
+
+## 1. Project Name
+* **System Identifier:** `home_workout_app` (defined in [pubspec.yaml](file:///C:/FLUTTER/home_workout_app/pubspec.yaml))
+* **Application Branding:** **Lumina Fitness**
+
+---
+
+## 2. One Line Summary
+An offline-first, glassmorphic Flutter fitness companion that delivers interactive workout routines with real-time bilingual voice coaching, streak challenges, and progress trackers.
+
+---
+
+## 3. Detailed Description
+Lumina Fitness is designed as a personal home training companion that eliminates the need for expensive gym memberships or complex exercise hardware. By targeting bodyweight routines, the application guides users through exercises with step-by-step stance instructions, animated visual indicators, and vocal prompts. To motivate users, the system incorporates a 30-day habit streak challenge and a local multiplayer leaderboard. The interface adopts a modern "Liquid Glass" glassmorphism aesthetic that flows over ambient glowing backdrops, ensuring a premium user experience.
+
+---
+
+## 4. Features
+
+### Completed Features
+* **Bilingual Voice Coaching:** Real-time Text-to-Speech (TTS) coaching cues in English and Hindi using [TtsService](file:///C:/FLUTTER/home_workout_app/lib/services/tts_service.dart#L5).
+* **Onboarding Configuration:** A wizard capturing biological details (gender, age, height, weight) with toggleable metric/imperial units.
+* **30-Day Streak Challenges:** Dynamic checking engines supporting 7-day, 14-day, and 30-day habit sprints with automatic day tracking.
+* **Interactive Progress Analytics:** Dynamic weight logging and active calorie tracking visualized on charts via `fl_chart`.
+* **Workout Timer Engine:** A state-driven active session tracker managing prep phases, exercise intervals, rest countdowns, and sound indicators.
+* **Custom Workout Plan Creator:** An interface allowing users to curate custom routines, specify durations, and arrange exercises.
+* **Liquid Glass Visual Engine:** Glassmorphism overlay rendering 3D meniscus borders, crescent sheens, and glare highlights on top of content cards.
+* **Hydration Tracker:** A daily logging dashboard for logging water consumption.
+* **Form Coach Collapser:** Stance instruction panels and execution warnings embedded inside the workout detail stream.
+
+### Partially Implemented Features
+* **Mock User Authentication:** Sign-up and login logic are mock-simulated inside [AuthService](file:///C:/FLUTTER/home_workout_app/lib/services/auth_service.dart#L4) returning static objects, rather than connecting to a live secure API gateway.
+* **Local-only Leaderboards:** Multiplayer ranks are generated locally with static competitors (e.g. Ryan Reynolds, Emma Watson) rather than sync-fetching from a multiplayer server database.
+
+---
+
+## 5. User Flow
+1. **Startup & Splash:** The app launches on [splash_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/splash_screen.dart), checking Hive local storage for a cached user session. If absent, the user is routed to onboarding.
+2. **Onboarding & Profiling:** The user completes the profiling sequence, configuring gender, age, height, weight, fitness goals, and training preferences.
+3. **Home Dashboard:** The user lands on [home_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/home_screen.dart) displaying a personalized time-based greeting, active streak counts, a "Start Today" workout panel, quick shortcuts, and the 30-day progress grid.
+4. **Selecting a Plan:** Tapping a workout opens the details sheet. The user reviews difficulty ratings, required equipment, and exercise descriptions.
+5. **Active Workout Execution:** Tapping "Start" launches [active_workout_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/active_workout_screen.dart). The countdown timer guides the user, playing audio cues and rendering stance animations. The user can pause, resume, or skip movements.
+6. **Summary Celebration:** Upon completion, the user is redirected to [summary_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/summary_screen.dart), triggering confetti, tracking burned calories, and updating history.
+7. **Streaks & Leaderboard Check:** The user opens the Challenges tab to view check-ins and check their rank on the leaderboard.
+8. **Logging Stats:** The user logs their weight and water intake, viewing progress charts on the Progress tab.
+
+---
+
+## 6. Screens and Pages
+
+The application consists of **48 distinct screen classes** located under the [screens](file:///C:/FLUTTER/home_workout_app/lib/screens/) directory:
+
+1. [about_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/about_screen.dart): Displays app version, publisher info, and licensing details.
+2. [achievement_badges_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/achievement_badges_screen.dart): Lists unlockable milestones and user reward badges.
+3. [active_workout_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/active_workout_screen.dart): Hosts the countdown timer, exercise animations, and sound triggers.
+4. [bad_form_tips_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/bad_form_tips_screen.dart): Outlines execution warnings and stance correction tips.
+5. [calendar_plan_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/calendar_plan_screen.dart): Visualizes workout schedules and completed logs on a calendar.
+6. [calories_tracker_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/calories_tracker_screen.dart): Tracks daily active calories burned with history logs.
+7. [category_plans_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/category_plans_screen.dart): Lists regimens belonging to selected groups (e.g. Cardio, Legs).
+8. [challenge_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/challenge_screen.dart): Displays the 7/14/30 day check-in rings, streak counts, and leaderboards.
+9. [create_plan_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/create_plan_screen.dart): Form wizard allowing users to construct customized training regimens.
+10. [discover_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/discover_screen.dart): Searchable hub hosting workout plans, categories, and difficulties.
+11. [exercise_detail_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/exercise_detail_screen.dart): Displays execution steps, target muscles, descriptions, and previews.
+12. [exercise_list_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/exercise_list_screen.dart): Shows chronological exercises belonging to a plan's specific day.
+13. [experience_level_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/experience_level_screen.dart): Profiling screen for selecting fitness levels (Beginner, Intermediate, Advanced).
+14. [gender_age_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/gender_age_screen.dart): Profiling screen for configuring user gender and age.
+15. [goal_selection_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/goal_selection_screen.dart): Profiling screen for selecting target goals (e.g. Weight Loss, Muscle Build).
+16. [height_weight_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/height_weight_screen.dart): Configures starting height and weight values with metric/imperial toggle buttons.
+17. [help_support_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/help_support_screen.dart): Houses FAQ lists, support tickets, and troubleshooting items.
+18. [home_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/home_screen.dart): Dashboard hosting personal greets, streaks, quick action buttons, and progress grids.
+19. [invite_friends_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/invite_friends_screen.dart): Renders referral links and social sharing options.
+20. [language_selection_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/language_selection_screen.dart): Let's users configure primary language choices (English/Hindi).
+21. [login_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/login_screen.dart): Captures email credentials or triggers mock Google Sign-In.
+22. [logout_confirmation_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/logout_confirmation_screen.dart): Standard prompt to verify account logout.
+23. [main_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/main_screen.dart): Shell architecture wrapping bottom navigation bar tabs with an `IndexedStack`.
+24. [notifications_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/notifications_screen.dart): Controls reminder logs and scheduling preferences.
+25. [onboarding_screen_1.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/onboarding_screen_1.dart): Onboarding page introducing fitness programs.
+26. [onboarding_screen_2.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/onboarding_screen_2.dart): Onboarding page detailing tracker logs and streak features.
+27. [onboarding_screen_3.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/onboarding_screen_3.dart): Onboarding page highlighting custom coaching support.
+28. [permissions_reminder_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/permissions_reminder_screen.dart): Interactive checklist explaining permission values.
+29. [privacy_policy_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/privacy_policy_screen.dart): Renders data collection rules and legal statements.
+30. [profile_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/profile_screen.dart): Shows customizable avatars, user stats, chosen plans, and settings entry keys.
+31. [progress_dashboard_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/progress_dashboard_screen.dart): Houses interactive charts for calorie/weight logs and workout history items.
+32. [rate_app_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/rate_app_screen.dart): Displays feedback stars and local store rating prompts.
+33. [saved_favorites_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/saved_favorites_screen.dart): Displays bookmarked plans and exercises for fast recall.
+34. [search_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/search_screen.dart): Search page matching inputs against the exercise indexes.
+35. [settings_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/settings_screen.dart): Hosts preferences: themes, metrics, languages, sound, and profile details.
+36. [signup_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/signup_screen.dart): Captures registration details and registers new mock credentials.
+37. [splash_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/splash_screen.dart): Startup screen resolving session states.
+38. [streak_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/streak_screen.dart): Visualizes streak stats and milestone calendar days.
+39. [subscription_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/subscription_screen.dart): Highlights premium feature packages and checkout prices.
+40. [summary_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/summary_screen.dart): Workout completion summary with duration, calorie burn counts, and confetti triggers.
+41. [theme_selection_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/theme_selection_screen.dart): Switches app visual theme configurations.
+42. [timer_customization_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/timer_customization_screen.dart): Configures countdown times and rest duration thresholds.
+43. [water_reminder_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/water_reminder_screen.dart): Hydration logger with daily water target metrics.
+44. [weight_tracker_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/weight_tracker_screen.dart): Logs user weight logs and visualizes chronological changes.
+45. [welcome_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/welcome_screen.dart): Splash landing page with sign-in and sign-up buttons.
+46. [workout_category_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/workout_category_screen.dart): Grid menu displaying target muscle groups (Abs, Chest, Legs).
+47. [workout_detail_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/workout_detail_screen.dart): Shows difficulty levels, durations, targets, and exercise list sequences.
+48. [workout_preference_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/workout_preference_screen.dart): Captures daily workout duration targets and equipment limits.
+
+---
+
+## 7. Architecture
+
+### Folder Structure
+The codebase resides under the standard [lib](file:///C:/FLUTTER/home_workout_app/lib/) directory:
+* `config/`: Hosts global setups (e.g. [app_config.dart](file:///C:/FLUTTER/home_workout_app/lib/config/app_config.dart)).
+* `data/`: Local raw datasets loaded into memory.
+* `models/`: Plain Dart entities defining properties (e.g. [exercise.dart](file:///C:/FLUTTER/home_workout_app/lib/models/exercise.dart)).
+* `providers/`: State management controllers managing updates (e.g. [progress_provider.dart](file:///C:/FLUTTER/home_workout_app/lib/providers/progress_provider.dart)).
+* `screens/`: Hosts the 48 UI components and workflow containers.
+* `services/`: Encapsulates operational logic (e.g. [tts_service.dart](file:///C:/FLUTTER/home_workout_app/lib/services/tts_service.dart)).
+* `theme/`: Dictates the visual styling rules.
+* `widgets/`: Houses reusable custom design controls (e.g. [custom_card.dart](file:///C:/FLUTTER/home_workout_app/lib/widgets/custom_card.dart)).
+
+### State Management
+* **Framework:** **Flutter Riverpod**
+* **Implementation:** Employs Riverpod's `Notifier` and `NotifierProvider` classes for dynamic state updates, combined with `FutureProvider` for asynchronous asset loading (e.g. `workoutPlansProvider`).
+
+### Navigation System
+* **Framework:** Imperative routing using Flutter's native `Navigator` API (`Navigator.push` / `Navigator.pop`).
+* **Main Container:** Host tabs are managed in an `IndexedStack` inside [main_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/main_screen.dart) to preserve screen states during tab swaps.
+
+### Database / Storage
+* **Database Engine:** **Hive** and **Hive Flutter**
+* **Implementation:** Two primary storage boxes:
+  * `userProgressBox`: Stores the [UserProgress](file:///C:/FLUTTER/home_workout_app/lib/models/user_progress.dart#L1) object (streaks, completed day lists).
+  * `settingsBox`: Stores calorie/weight logs, checked-in challenge dates, custom plans, theme indexes, and timer presets.
+
+### APIs & External Services
+* **REST Networking:** Uses the `http` package to validate API credentials against an authentication gateway.
+* **Audio Voice Services:** Interfaces with the device native Text-To-Speech systems via `flutter_tts`.
+* **Haptics:** Direct triggers to system tactile engines via `HapticFeedback` inside [haptic_service.dart](file:///C:/FLUTTER/home_workout_app/lib/services/haptic_service.dart#L3).
+
+---
+
+## 8. Dependencies
+Here are the essential packages declared in [pubspec.yaml](file:///C:/FLUTTER/home_workout_app/pubspec.yaml):
+1. `flutter_riverpod`: Handles app state management.
+2. `hive_flutter`: Handles local data storage.
+3. `lottie`: Renders vector animations for active exercise steps.
+4. `flutter_animate`: Manages UI transitions and micro-animations.
+5. `fl_chart`: Renders calorie and weight tracking charts.
+6. `flutter_tts`: Runs bilingual voice prompts.
+7. `google_fonts`: Loads typography.
+8. `audioplayers`: Plays sound cues at stage transitions.
+9. `flutter_dotenv`: Manages API keys and configuration parameters.
+10. `http`: Handles API calls.
+11. `confetti`: Triggers celebratory particle systems on summary screens.
+
+---
+
+## 9. Data Flow
+1. **Asset Fetching:** On startup, [dataProvider](file:///C:/FLUTTER/home_workout_app/lib/providers/data_provider.dart) fetches `exercises.json` using `rootBundle.loadString`, parsing it into list objects (`List<WorkoutPlan>` and `List<Exercise>`).
+2. **State Watchers:** Widgets watch [progressProvider](file:///C:/FLUTTER/home_workout_app/lib/providers/progress_provider.dart#L386) to rebuild components in response to streak changes, weight logs, or challenge updates.
+3. **Session Start:** Starting a routine calls `startWorkoutSession(...)` inside [ProgressNotifier](file:///C:/FLUTTER/home_workout_app/lib/providers/progress_provider.dart#L58), creating a placeholder session labeled `status: partial` in Hive.
+4. **Active Workout State Loop:** [active_workout_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/active_workout_screen.dart) listens to [workoutProvider](file:///C:/FLUTTER/home_workout_app/lib/providers/workout_provider.dart#L191). The provider runs a periodic timer, decrementing duration every second, updating the state, and prompting `TtsService` to speak cue strings.
+5. **Workout Complete:** On completion, the system:
+   * Calls `completeWorkoutSession(...)` to update the history session status to `completed` in Hive.
+   * Logs burned calories (~15 cal per exercise).
+   * Marks the day completed, increments streak counts, and pushes updates to the leaderboard.
+6. **Persistence:** All progress notifier operations execute sync updates directly to the Hive database boxes to prevent data loss.
+
+---
+
+## 10. Current Status
+* **Estimated Completion:** **95%**
+* **Bugs & Missing Features:**
+  * Authentication relies on simulated server responses.
+  * Leaderboard ranks are generated using local calculations rather than a centralized cloud database.
+  * Lacks native synchronization with health frameworks like Google Fit or Apple Health.
+
+---
+
+## 11. Technologies Used
+* **Framework:** Flutter SDK (3.22+)
+* **Language:** Dart (3.8+)
+* **State Manager:** Riverpod (v3 state patterns)
+* **Local Database:** Hive NoSQL Storage
+* **Charts:** FlChart Rendering Engine
+* **Voice Engine:** Flutter TTS
+* **Assets:** Lottie JSON Vectors
+
+---
+
+## 12. Internship Report Content
+
+### Introduction
+Mobile applications have emerged as key tools for personal wellness. Lumina Fitness is a mobile fitness client developed using Flutter. It is designed to act as an offline-first fitness coach, providing structured training regimens without requiring specialized equipment.
+
+### Objective
+The primary goal of this project is to build a highly responsive home workout tracking platform that encourages physical consistency. Key objectives include:
+* Developing a lightweight, local-storage database engine using Hive.
+* Building a real-time voice coaching system supporting dual-language outputs (English and Hindi).
+* Constructing an interface using glassmorphic design principles.
+* Implementing progress tracking through weight and calorie charts.
+
+### Problem Statement
+Most modern fitness applications require expensive premium tiers, constant internet connectivity, and complex external tracking hardware. This creates a barrier for users seeking a simple training guide. Furthermore, many applications feature flat, generic designs that fail to engage the user. Lumina Fitness addresses these issues by offering an offline-first training guide with high-fidelity, interactive glassmorphic visuals and bilingual audio cues.
+
+### Methodology
+The development process followed an agile, feature-driven approach:
+* **Research and Setup:** Analyzed requirements and structured the project directories.
+* **Onboarding Setup:** Built a configuration wizard to gather profile details.
+* **Database Integration:** Configured Hive storage to cache progress and settings.
+* **Core Workouts and TTS:** Implemented the active workout timer and Text-to-Speech coaching engine.
+* **Design Implementation:** Developed the Liquid Glass visual theme using a custom painter overlay.
+* **Testing and Refactoring:** Ran code analysis (`flutter analyze`) to resolve issues.
+
+### Features
+* **Bilingual Voice Alerts:** Speaks instructions in English and Hindi.
+* **Streak Checking:** tracks consistency using 7/14/30 day rings.
+* **Tactile Feedback:** Integrates haptic feedback on button presses.
+* **Analytical Progress Charts:** Visualizes weight changes and calorie logs.
+* **Animated Exercise Form:** Plays Lottie JSON vectors to guide exercises.
+
+### Future Scope
+* **Cloud Sync Integration:** Connecting backend server databases (e.g. Firebase, PostgreSQL) to sync user profiles.
+* **Social Multiplayer Features:** Enabling real multiplayer leaderboards and progress sharing with friends.
+* **Wearable Device Integration:** Connecting with smartwatches and health platforms (e.g. Google Health Connect, Apple HealthKit).
+
+### Conclusion
+Lumina Fitness provides a robust home workout tracking experience. By combining local NoSQL caching, a state-driven workout timer, bilingual voice guidance, and a modern glassmorphic interface, the project demonstrates how Flutter can be used to build premium, responsive, and accessible health applications.
+
+---
+
+## 13. Log Report Activities (30-Day Internship Log)
+
+* **Day 1:** Set up the Flutter development environment and configured the project repository.
+* **Day 2:** Analyzed system requirements and established the directory structures under the `lib` folder.
+* **Day 3:** Designed the onboarding layouts and built the welcome splash interface.
+* **Day 4:** Programmed the profile configuration screens (gender, age, goals selection).
+* **Day 5:** Built the height and weight configuration screens, implementing metric/imperial toggle buttons.
+* **Day 6:** Designed the typography and theme tokens, setting up the light and dark color schemes.
+* **Day 7:** Configured the Hive local database engine, initializing boxes in `main.dart`.
+* **Day 8:** Created the [UserProgressAdapter](file:///C:/FLUTTER/home_workout_app/lib/services/hive_service.dart#L4) to serialize and store user progress.
+* **Day 9:** Structured the exercise and plan data models, creating the asset json indexes.
+* **Day 10:** Configured asset paths in `pubspec.yaml` and verified json data loading on startup.
+* **Day 11:** Designed the bottom navigation dock in [main_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/main_screen.dart) using an `IndexedStack`.
+* **Day 12:** Built [home_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/home_screen.dart), integrating greeting messages and the 30-day challenge grid.
+* **Day 13:** Developed [discover_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/discover_screen.dart) with category navigation and difficulty filters.
+* **Day 14:** Programmed the quick search page to match user queries against exercises and target muscles.
+* **Day 15:** Integrated the `fl_chart` package to support progress tracking.
+* **Day 16:** Built the weight and calorie logs dashboard, linking inputs to interactive line and bar charts.
+* **Day 17:** Developed [workout_detail_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/workout_detail_screen.dart) to show plans and list exercise sequences.
+* **Day 18:** Programmed [active_workout_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/active_workout_screen.dart), setting up the timer state controller.
+* **Day 19:** Integrated `flutter_tts` into [TtsService](file:///C:/FLUTTER/home_workout_app/lib/services/tts_service.dart#L5) to support bilingual voice coaching (English/Hindi).
+* **Day 20:** Programmed audio notifications for rest periods, active movements, and countdowns.
+* **Day 21:** Built [summary_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/summary_screen.dart), implementing active calorie calculation rules and confetti systems.
+* **Day 22:** Created [challenge_screen.dart](file:///C:/FLUTTER/home_workout_app/lib/screens/challenge_screen.dart) and implemented join/leave methods for 30-day habit sprints.
+* **Day 23:** Developed the local multiplayer leaderboard, tracking check-ins and scoring updates.
+* **Day 24:** Programmed the Form Coach panel, showing stance descriptions and warning indicators.
+* **Day 25:** Added confirmation prompts for starting, skipping, or quitting workouts.
+* **Day 26:** Designed the custom plan creator wizard, allowing users to build customized training plans.
+* **Day 27:** Built `LiquidGlassPainter` to render 3D meniscus borders, crescent sheens, and glare highlights on cards.
+* **Day 28:** Applied the glassmorphism rendering engine to the bottom navigation dock and quick action cards.
+* **Day 29:** Refactored the code to remove unused imports, resolving deprecation warnings in the screens.
+* **Day 30:** Ran compilation checks (`flutter analyze`) and verified application performance on the target device.

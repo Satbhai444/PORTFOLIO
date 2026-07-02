@@ -1,0 +1,136 @@
+# Internship Project Report: WinDeck
+
+## 1. Project Name
+**WinDeck** (Client: Flutter Android App, Server: Node.js Windows App)
+
+## 2. One Line Summary
+A real-time remote control companion app that transforms an Android smartphone into a customizable macro pad (like a Stream Deck) to control a Windows PC over a local Wi-Fi network.
+
+## 3. Detailed Description
+WinDeck bridges the gap between a user's Android device and their Windows PC. By running a lightweight Node.js server on the PC and a Flutter client application on the phone, the system establishes a low-latency, bidirectional Socket.io connection. Users can create multiple pages containing grids of tiles. Each tile can be customized with an icon or emoji and assigned specific actions such as launching PC applications, executing custom PowerShell macros, controlling system volume and media playback, or monitoring real-time CPU/RAM usage. The application discovers the PC automatically over the network via UDP broadcasting, eliminating the need for manual IP configuration.
+
+## 4. Features
+**Completed Features:**
+- **Zero-Config Pairing:** Automatic PC discovery via UDP broadcasting on the local network.
+- **Dynamic Tile Grid:** Customizable grid interface supporting multiple pages.
+- **System Controls:** Real-time control of volume, brightness, media playback, screen locking, and screenshot capture.
+- **App Launcher:** Automatic extraction of installed PC applications and their native icons, allowing users to launch PC software directly from the phone.
+- **Custom Macros:** Execution of arbitrary PowerShell scripts and macros from a single tile tap.
+- **Real-Time Telemetry:** Live streaming of PC CPU and RAM usage directly to the phone UI.
+- **Haptic & Audio Feedback:** Device vibration and custom audio playback on every tile interaction.
+- **State Persistence:** Local storage of tile configurations and pages.
+
+**Planned Features:**
+- **Advanced Media Hub:** Dedicated interface to view Spotify/YouTube album art and granular media controls.
+- **Auto-Switching Profiles:** Automatic phone UI page switching based on the active foreground application on the PC.
+- **Wireless Trackpad & Keyboard:** Mouse and keyboard emulation over Wi-Fi.
+- **Wi-Fi AirDrop:** Drag-and-drop file transfer between PC and Phone.
+
+## 5. User Flow
+1. **Launch:** The user starts the WinDeck server on their Windows PC.
+2. **Discovery:** The user opens the WinDeck Flutter app on their Android phone. The app scans the local Wi-Fi network.
+3. **Connection:** The PC's hostname appears on the discovery screen. The user taps it, and the app connects instantly via Socket.io without requiring an OTP.
+4. **Configuration:** The user is presented with the Home Screen. They tap an "Empty" tile, which opens the Editor Bottom Sheet.
+5. **Tile Assignment:** The user searches for an app (e.g., "Chrome") or selects a system control (e.g., "Mute"). They assign an icon and save.
+6. **Execution:** The user taps the newly configured tile. The app plays a custom tap sound, vibrates slightly, and sends a socket event to the PC. The PC executes the corresponding action instantly.
+
+## 6. Screens and Pages
+- **Discovery Screen (`discovery_screen.dart`):** Scans the local network for active WinDeck servers using UDP. Displays a list of available PCs and handles the initial Socket.io handshake.
+- **Home Screen (`home_screen.dart`):** The primary user interface. Features a top connection banner, a tab bar for switching between pages, the main `TileGrid` for interaction, and a `ServerStatusBar` for global status.
+- **Editor Screen (`editor_screen.dart`):** A dual-tabbed bottom sheet interface. One tab allows users to assign predefined system controls, while the other tab provides a searchable list of PC applications fetched dynamically from the server.
+
+## 7. Architecture
+- **Folder Structure:** Modular architecture with `/models/`, `/providers/`, `/screens/`, `/services/`, and `/widgets/`.
+- **State Management:** Uses the `provider` package (`PagesProvider`, `ConnectionProvider`).
+- **Navigation:** Standard Flutter `Navigator` with named routes.
+- **Database/Storage:** Uses `shared_preferences` to serialize and store layouts locally.
+- **APIs/External Services:** Relies on local WebSockets (`socket.io-client`) for bidirectional RPC communication with the Node.js backend.
+
+## 8. Dependencies
+- **`provider`:** Essential for reactive state management across deeply nested widgets.
+- **`socket_io_client`:** Enables persistent, low-latency WebSocket connections to the PC.
+- **`shared_preferences`:** Used for offline persistence of the user's custom tile configurations.
+- **`audioplayers`:** Implements custom native audio playback triggered by UI interactions.
+
+## 9. Data Flow
+1. **Input:** User taps a `TileWidget` on the phone.
+2. **Client Processing:** Flutter triggers visual animations, haptic feedback, and invokes `SocketService().pressAction()`.
+3. **Transport:** A lightweight JSON payload is emitted via WebSockets to the Node.js server.
+4. **Server Processing:** The Express/Socket.io server receives the event, maps it to a Windows API or PowerShell script execution.
+5. **Feedback:** The server emits an `action-result` or `status` event back to the Flutter app.
+6. **UI Update:** The `ConnectionProvider` receives the payload and updates the telemetry or UI state on the phone.
+
+## 10. Current Status
+- **Completion Percentage:** ~60% (Core framework is stable; advanced features pending).
+- **Current Bugs:** Native build environment issues regarding `compileSdk` constraints for Android.
+- **Missing Features:** Trackpad emulation, Media Hub, and File Transfer are designed in the architecture but not fully implemented in code.
+
+## 11. Technologies Used
+- **Frontend:** Flutter SDK, Dart.
+- **Backend:** Node.js, Express.js, Socket.io.
+- **System Integration:** Windows PowerShell, Windows Media Sessions API, Active-Win.
+
+---
+
+## 12. Internship Report Content
+
+### Introduction
+In the modern digital workspace, professionals frequently multitask across applications, relying heavily on keyboard shortcuts and mouse interactions. WinDeck is a specialized software solution designed to streamline these workflows by converting an Android smartphone into a dedicated, customizable macro keypad. Operating entirely over a local Wi-Fi network, it grants users the power to launch software, run scripts, and control system hardware with a single physical tap.
+
+### Objective
+The primary objective of this project is to develop a low-latency, highly customizable remote control interface bridging Android and Windows platforms, demonstrating full-stack proficiency in Flutter, Node.js, and network socket programming.
+
+### Problem Statement
+Standard macro pads (like the Elgato Stream Deck) are expensive hardware peripherals. Meanwhile, most users already own a highly capable touch-screen device—their smartphone. The challenge is to create a seamless, zero-configuration software alternative that offers the same tactile responsiveness and deep operating system integration without requiring complex setup procedures.
+
+### Methodology
+The project adopted an Agile development methodology, separated into two distinct architectural domains:
+1. **Node.js Server:** Built to interface with Windows OS APIs via PowerShell, handling system-level commands and broadcasting local network availability.
+2. **Flutter Application:** Designed using the Provider pattern for state management, focusing on a responsive, dark-themed UI that dynamically updates based on real-time socket events.
+Iterative testing was conducted using physical Android devices over local Wi-Fi to measure latency and optimize WebSocket payload sizes.
+
+### Features
+The system is capable of executing arbitrary code, launching applications with dynamically fetched icons, controlling media, and streaming real-time hardware telemetry.
+
+### Future Scope
+The application architecture is designed to support advanced telemetry. Future iterations will include Auto-Switching Profiles (where the phone UI adapts based on the active PC window), wireless trackpad emulation, and peer-to-peer Wi-Fi file transfers. 
+
+### Conclusion
+The development of WinDeck successfully proved that a mobile device can act as a high-performance peripheral for a desktop operating system. The project provided extensive hands-on experience with cross-platform UI development, real-time networking, and OS-level scripting, resulting in a highly functional prototype ready for advanced feature integration.
+
+---
+
+## 13. Log Report Activities (30-Day Internship Log)
+
+| Day | Activity |
+|---|---|
+| Day 1 | Project setup, initial requirements gathering, and environment configuration for Flutter and Node.js. |
+| Day 2 | Designed the foundational architecture for Client-Server communication using Socket.io. |
+| Day 3 | Initialized the Node.js backend; implemented basic Express server and socket listeners. |
+| Day 4 | Initialized the Flutter project; set up folder structures and basic routing. |
+| Day 5 | Implemented UDP broadcasting in Node.js for automatic local network discovery. |
+| Day 6 | Developed the `discovery_screen.dart` in Flutter to scan and list discovered UDP servers. |
+| Day 7 | Connected the Flutter app to the Node.js backend via WebSockets; verified handshake. |
+| Day 8 | Designed `PageModel` and `TileModel` data structures for UI serialization. |
+| Day 9 | Integrated the `Provider` package in Flutter; built `PagesProvider` for state management. |
+| Day 10 | Developed the `home_screen.dart` UI and the dynamic `TileGrid` layout. |
+| Day 11 | Implemented local state persistence in Flutter using `shared_preferences`. |
+| Day 12 | Wrote PowerShell scripts on the backend to manipulate Windows system volume and brightness. |
+| Day 13 | Bound backend system controls to socket events; tested volume/media controls from Flutter. |
+| Day 14 | Developed the `appDiscovery.js` module on the backend to parse `.lnk` files from the Windows Start Menu. |
+| Day 15 | Implemented icon extraction endpoints in Express to convert `.exe` icons to PNGs dynamically. |
+| Day 16 | Developed the `editor_screen.dart` in Flutter; built the UI for assigning actions to tiles. |
+| Day 17 | Integrated the PC application list into the Flutter editor screen with search functionality. |
+| Day 18 | Fixed environment variable parsing (`%windir%`) in backend shortcut extraction logic. |
+| Day 19 | Implemented the `launch-app` socket event to allow Flutter to start PC applications. |
+| Day 20 | Developed custom PowerShell macro execution endpoints on the Node.js server. |
+| Day 21 | Implemented the real-time telemetry module; streamed CPU and RAM usage via WebSockets. |
+| Day 22 | Updated the Flutter UI to display live hardware telemetry directly within the tile widgets. |
+| Day 23 | Refactored `socket_service.dart` to handle edge cases with dynamic payload parsing. |
+| Day 24 | Implemented haptic feedback (`HapticFeedback`) and scaling animations in `TileWidget`. |
+| Day 25 | Researched and integrated the `audioplayers` package for custom UI sound effects. |
+| Day 26 | Handled native Android `compileSdk` upgrades required by native dependencies. |
+| Day 27 | Designed the architecture for Phase 2 (Advanced Media Hub & Auto-Switching). |
+| Day 28 | Refined the UI aesthetics; adjusted dark mode colors and tile border radii. |
+| Day 29 | Conducted end-to-end testing of the application on physical devices to ensure low latency. |
+| Day 30 | Finalized code documentation, cleaned up unused imports, and drafted the final project report. |
