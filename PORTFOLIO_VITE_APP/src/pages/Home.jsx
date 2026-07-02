@@ -6,6 +6,7 @@ import "./Home.css";
 
 /* ─── DATA ─── */
 const projects = [
+    { title: "CLASSX",         category: "EDTECH PLATFORM",     images: ["/work/classx1.jpeg"] },
     { title: "TUNIFY",         category: "MUSIC STREAMING APP", images: ["/music_player.png"] },
     { title: "SEIZEFIRE",      category: "E-COMMERCE APP",      images: ["/netflix_clone.png"] },
     { title: "LUMINA FITNESS", category: "HEALTH & FITNESS",    images: ["/work/luminafitness1.jpeg","/work/luminafitness2.jpeg","/work/luminafitness3.jpeg","/work/luminafitness4.jpeg","/work/luminafitness5.jpeg","/work/luminafitness6.jpeg","/work/luminafitness7.jpeg","/work/luminafitness8.jpeg","/work/luminafitness9.jpeg"] },
@@ -21,7 +22,7 @@ const services = [
 ];
 
 const stats = [
-    { number: '5+',   label: 'Projects Built' },
+    { number: '7+',   label: 'Projects Built' },
     { number: '4',    label: 'Tech Stacks' },
     { number: '1+',   label: 'Year of Experience' },
     { number: '10x',  label: 'Faster with AI' },

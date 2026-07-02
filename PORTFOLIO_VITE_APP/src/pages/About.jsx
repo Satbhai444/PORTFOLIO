@@ -5,7 +5,7 @@ import { ArrowUpRight, Download } from 'lucide-react';
 import { Marquee, TiltCard, MarqueeTitle } from '../components/MarqueeTilt';
 import './About.css';
 
-const marqueeItems = ['Flutter', 'React', 'Firebase', 'Node.js', 'Framer Motion', 'Dart', 'Riverpod', 'Vite', 'Prompt Engineering', 'AI Development', 'Socket.io', 'GSAP'];
+const marqueeItems = ['Flutter', 'React', 'Firebase', 'Node.js', 'Framer Motion', 'Dart', 'Riverpod', 'Vite', 'Django', 'Python', 'Prompt Engineering', 'AI Development', 'Socket.io', 'GSAP'];
 
 const ClipReveal = ({ children, delay = 0 }) => (
     <div style={{ overflow: 'hidden' }}>
