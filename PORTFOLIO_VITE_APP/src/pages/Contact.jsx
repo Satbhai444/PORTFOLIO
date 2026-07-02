@@ -66,6 +66,7 @@ const FaqItem = ({ faq, index }) => {
 const Contact = () => {
     const [formData, setFormData] = useState({ firstName: '', lastName: '', email: '', message: '' });
     const [status, setStatus] = useState('idle'); // idle | sending | success | error
+    const [errorMsg, setErrorMsg] = useState('');
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -90,9 +91,10 @@ const Contact = () => {
             setStatus('success');
             setFormData({ firstName: '', lastName: '', email: '', message: '' });
             setTimeout(() => setStatus('idle'), 4000);
-        } catch {
+        } catch (err) {
             setStatus('error');
-            setTimeout(() => setStatus('idle'), 4000);
+            setErrorMsg(err?.text || err?.message || 'Unknown Error');
+            setTimeout(() => { setStatus('idle'); setErrorMsg(''); }, 8000);
         }
     };
 
@@ -100,7 +102,7 @@ const Contact = () => {
         idle:    'Send Message',
         sending: 'Sending...',
         success: 'Message Sent ✓',
-        error:   'Failed — Try Again',
+        error:   `Error: ${errorMsg}`,
     }[status];
 
     return (
