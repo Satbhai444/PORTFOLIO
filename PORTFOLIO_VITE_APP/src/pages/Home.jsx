@@ -139,22 +139,7 @@ const Home = () => {
                     <div className="wf-name-clip"><h1 className="wf-name-line">{renderSplitName("SATBHAI", 0.22)}</h1></div>
                 </div>
 
-                <motion.div
-                    className="wf-hero-card-wrap"
-                    initial={{ opacity: 0, y: "85%" }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1.1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                >
-                    <motion.div
-                        className="wf-hero-card"
-                        initial={{ scale: 0.65, rotateY: 180, rotateZ: 25 }}
-                        animate={{ scale: 1, rotateY: 0, rotateZ: 0 }}
-                        transition={{ duration: 1.2, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                        style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
-                    >
-                        <img src="/dev_avatar.png" alt="Darshan Satbhai" className="wf-hero-img" />
-                    </motion.div>
-                </motion.div>
+
 
                 <motion.a
                     href="#intro"
