@@ -1,0 +1,96 @@
+.spline-demo-card {
+  width: 100%;
+  height: 500px;
+  background-color: rgba(0, 0, 0, 0.96);
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.spline-spotlight {
+  position: absolute;
+  top: -10rem;
+  left: 0;
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .spline-spotlight {
+    left: 15rem;
+    top: -5rem;
+  }
+}
+
+.spline-demo-content {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .spline-demo-content {
+    flex-direction: row;
+  }
+}
+
+.spline-demo-text {
+  flex: 1;
+  padding: 2rem;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.spline-demo-title {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 700;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to bottom, #f9fafb, #9ca3af);
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .spline-demo-title {
+    font-size: 3rem;
+    line-height: 1;
+  }
+}
+
+.spline-demo-desc {
+  margin-top: 1rem;
+  color: #d4d4d8;
+  max-width: 32rem;
+}
+
+.spline-demo-scene {
+  flex: 1;
+  position: relative;
+  min-height: 300px;
+}
+
+.spline-canvas {
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+}
+
+.spline-loader-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spline-loader {
+  color: white;
+  opacity: 0.5;
+}

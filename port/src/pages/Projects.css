@@ -1,0 +1,284 @@
+/* ═══════════════════════════════════ */
+/*           WORKS HERO               */
+/* ═══════════════════════════════════ */
+.works-hero {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: 10rem;
+  padding-bottom: 3rem;
+  background: var(--bg-dark);
+  overflow: hidden;
+}
+
+.works-hero-content {
+  width: 100%;
+}
+
+/* ═══════════════════════════════════ */
+/*           WORKS GRID               */
+/* ═══════════════════════════════════ */
+.works-grid-section {
+  background: var(--bg-dark);
+}
+
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.work-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border-light);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  transition: border-color 0.4s ease;
+}
+
+.work-card:hover {
+  border-color: rgba(255,255,255,0.3);
+}
+
+.work-card-image {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+}
+
+.work-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.work-card-info {
+  padding: 2rem;
+}
+
+.work-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.work-card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+}
+
+.work-card-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.work-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-light);
+  gap: 1rem;
+}
+
+.work-card-github-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 1rem;
+  border-radius: 100px;
+  border: 1px solid var(--border-light);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+  flex-shrink: 0;
+}
+
+.work-card-github-btn:hover {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+}
+
+/* ═══════════════════════════════════ */
+/*          WORKS SPLIT PANEL         */
+/* ═══════════════════════════════════ */
+.works-split-section {
+  display: grid;
+  grid-template-columns: 1fr 460px;
+  min-height: 80vh;
+  background: var(--bg-dark);
+}
+
+.works-split-left {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  border-right: 1px solid var(--border-light);
+}
+
+.works-preview-img {
+  max-width: 320px;
+  max-height: 480px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 1.25rem;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+}
+
+.works-carousel-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.works-carousel-dots {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.works-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  transition: background 0.3s, transform 0.3s;
+  flex-shrink: 0;
+}
+
+.works-dot.is-active {
+  background: #fff;
+  transform: scale(1.4);
+}
+
+.works-preview-placeholder {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+  margin: 0;
+}
+
+.works-split-right {
+  background: #f2f2f2;
+  overflow-y: auto;
+}
+
+.works-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 0.7rem;
+  color: #111;
+  letter-spacing: 0.1em;
+}
+
+.works-panel-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.75rem 2rem;
+  border-bottom: 1px solid #e5e5e5;
+  cursor: default;
+  transition: background 0.2s;
+}
+.works-panel-item:hover { background: #e8e8e8; }
+
+.works-panel-item-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.works-panel-num {
+  font-size: 0.65rem;
+  color: #bbb;
+  letter-spacing: 0.1em;
+  min-width: 2rem;
+}
+
+.works-panel-title {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #111;
+  letter-spacing: -0.02em;
+}
+
+.works-panel-cat {
+  display: block;
+  font-size: 0.65rem;
+  color: #999;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+}
+
+.works-panel-github {
+  color: #aaa;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s, transform 0.2s;
+}
+.works-panel-github:hover { color: #111; transform: translateY(-2px); }
+
+@media (max-width: 900px) {
+  .works-split-section { grid-template-columns: 1fr; }
+  .works-split-left { display: none; }
+}
+
+@media (max-width: 600px) {
+  .works-panel-item { padding: 1.25rem; }
+}
+
+.works-footer-cta {
+  background: var(--bg-dark);
+  border-top: 1px solid var(--border-light);
+}
+
+/* ═══════════════════════════════════ */
+/*            RESPONSIVE              */
+/* ═══════════════════════════════════ */
+@media (max-width: 768px) {
+  .works-hero {
+    min-height: auto;
+    padding-top: 8rem;
+    padding-bottom: 2rem;
+  }
+
+  .works-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .work-card-image {
+    height: 280px;
+  }
+
+  .work-card-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .work-card-footer {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+}

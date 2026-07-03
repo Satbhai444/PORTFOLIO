@@ -1,0 +1,119 @@
+/* ── Marquee ── */
+.marquee-section {
+  overflow: hidden;
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  background: #000;
+  position: relative;
+}
+
+/* ── Marquee Title ── */
+.marquee-title-section {
+  overflow: hidden;
+  width: 100%;
+  padding: 0.5rem 0 1rem;
+}
+
+.marquee-title-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: marquee-scroll 18s linear infinite;
+  will-change: transform;
+}
+
+.marquee-section.is-light {
+  background: #f2f2f2;
+  border-color: rgba(0,0,0,0.08);
+}
+
+.marquee-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 0;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track.reverse {
+  animation-direction: reverse;
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0 2rem;
+  white-space: nowrap;
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: #fff;
+  transition: transform 0.3s ease;
+}
+
+.marquee-title-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  white-space: nowrap;
+  font-size: clamp(5rem, 20vw, 18rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.marquee-title-sep {
+  font-size: clamp(1.5rem, 3vw, 3rem);
+  color: rgba(255,255,255,0.25);
+  padding: 0 1rem;
+  flex-shrink: 0;
+}
+
+.marquee-item:hover {
+  transform: translateY(-5px);
+}
+
+.marquee-section.is-light .marquee-item {
+  color: #111;
+}
+
+.marquee-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.marquee-item:hover .marquee-dot {
+  background: #fff;
+  transform: scale(1.5);
+}
+
+.marquee-section.is-light .marquee-dot {
+  background: rgba(0,0,0,0.2);
+}
+
+/* ── TiltCard ── */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.12s linear;
+  will-change: transform;
+}
