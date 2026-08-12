@@ -33,7 +33,26 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    flex-shrink: 0;
 }
+
+.apple-btn {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.apple-btn:hover {
+    opacity: 0.7;
+}
+
+.apple-btn.close { background: #ff5f56; }
+.apple-btn.minimize { background: #ffbd2e; }
+.apple-btn.expand { background: #27c93f; }
+
 
 .cp-search-icon {
     color: #888;
@@ -48,6 +67,7 @@
     color: #fff;
     font-size: 1.1rem;
     font-family: inherit;
+    min-width: 0;
 }
 
 .cp-input::placeholder {
