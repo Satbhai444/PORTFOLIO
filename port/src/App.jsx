@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -13,6 +13,11 @@ import NotFound from './pages/NotFound';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import BackToHome from './components/BackToHome';
+import CommandPalette from './components/CommandPalette';
+import WinDeckOverlay from './components/WinDeckOverlay';
+import BrowserModal from './components/BrowserModal';
+import MatrixOverlay from './components/MatrixOverlay';
+import KonamiGame from './components/KonamiGame';
 
 // Styles
 import './index.css';
@@ -33,18 +38,25 @@ function ScrollToTop() {
   return null;
 }
 
+import './components/PageTransition.css'; // Add the CSS for columns
+
 function AnimatedRoutes() {
   const location = useLocation();
+  const columns = 5;
 
   return (
     <AnimatePresence mode="wait">
+      {/* 
+        We wrap both the content and the transition overlay in a Fragment.
+        AnimatePresence needs direct motion children to track keys.
+      */}
       <motion.div
-        key={location.pathname}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        style={{ width: '100%' }}
+        key={`content-${location.pathname}`}
+        initial={{ opacity: 0, y: 20, scale: 0.98, filter: 'blur(10px)' }}
+        animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+        exit={{ opacity: 0, y: -20, scale: 0.98, filter: 'blur(10px)' }}
+        transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        style={{ width: '100%', minHeight: '100vh' }}
       >
         <Routes location={location}>
           <Route path="/" element={<Home />} />
@@ -54,15 +66,104 @@ function AnimatedRoutes() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </motion.div>
+
+      {/* The sweeping transition columns */}
+      <motion.div 
+        key={`overlay-${location.pathname}`}
+        className="transition-overlay-container"
+      >
+        {[...Array(columns)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="transition-column"
+            initial={{ scaleY: 1, transformOrigin: 'bottom' }}
+            animate={{ scaleY: 0, transformOrigin: 'top' }}
+            exit={{ scaleY: 1, transformOrigin: 'bottom' }}
+            transition={{ 
+                duration: 0.6, 
+                ease: [0.22, 1, 0.36, 1],
+                delay: i * 0.05 // Staggered effect
+            }}
+          />
+        ))}
+      </motion.div>
     </AnimatePresence>
   );
 }
 
 const App = () => {
+  const [isSelfDestructing, setIsSelfDestructing] = useState(false);
+
+  useEffect(() => {
+    const handleSelfDestruct = () => setIsSelfDestructing(true);
+    window.addEventListener('trigger-self-destruct', handleSelfDestruct);
+
+    // Global Link Interceptor for Built-in Browser
+    const handleGlobalClick = (e) => {
+      const link = e.target.closest('a');
+      if (link && link.href) {
+        const isExternal = link.hostname && link.hostname !== window.location.hostname;
+        const isTargetBlank = link.target === '_blank';
+        
+        if ((isExternal || isTargetBlank) && link.href.startsWith('http')) {
+          e.preventDefault();
+          window.dispatchEvent(new CustomEvent('open-browser', {
+            detail: { url: link.href }
+          }));
+        }
+      }
+    };
+    document.addEventListener('click', handleGlobalClick);
+
+    // Konami Code Logic
+    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    let konamiIndex = 0;
+    const handleKonami = (e) => {
+      if (e.key === konamiCode[konamiIndex]) {
+        konamiIndex++;
+        if (konamiIndex === konamiCode.length) {
+          window.dispatchEvent(new Event('trigger-konami'));
+          konamiIndex = 0;
+        }
+      } else {
+        konamiIndex = 0;
+      }
+    };
+    document.addEventListener('keydown', handleKonami);
+
+    // Mobile Secret Trigger: 5 rapid taps anywhere on screen
+    let tapCount = 0;
+    let tapTimeout;
+    const handleMobileTap = () => {
+      tapCount++;
+      if (tapCount >= 5) {
+        window.dispatchEvent(new Event('trigger-konami'));
+        tapCount = 0;
+      }
+      clearTimeout(tapTimeout);
+      tapTimeout = setTimeout(() => {
+        tapCount = 0;
+      }, 400); // 400ms window between taps
+    };
+    document.addEventListener('touchstart', handleMobileTap);
+
+    return () => {
+      window.removeEventListener('trigger-self-destruct', handleSelfDestruct);
+      document.removeEventListener('click', handleGlobalClick);
+      document.removeEventListener('keydown', handleKonami);
+      document.removeEventListener('touchstart', handleMobileTap);
+    };
+  }, []);
+
   return (
     <Router>
-      <div className="page-wrapper">
+      <div className={`page-wrapper ${isSelfDestructing ? 'self-destruct-active' : ''}`}>
         <ScrollToTop />
+        <CommandPalette />
+        <WinDeckOverlay />
+        <MatrixOverlay />
+        <KonamiGame />
+        <BrowserModal />
         <Navbar />
         <main>
           <AnimatedRoutes />

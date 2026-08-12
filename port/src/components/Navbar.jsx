@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Search } from 'lucide-react';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -27,19 +27,35 @@ const Navbar = () => {
         <>
             <nav className={`nb ${scrolled ? 'nb--scrolled' : ''}`}>
                 <div className="nb__inner">
-                    <Link to="/" className="nb__brand">PORTFOLIO</Link>
+                    <Link to="/" className="nb__brand interactive">
+                        <img src="/signature.png" alt="Darshan Satbhai" style={{ height: '36px', filter: 'invert(1)', objectFit: 'contain' }} />
+                    </Link>
+
+                    <div className="nb__status hide-mobile">
+                        <span className="nb__status-dot" />
+                        <span className="nb__status-text">Available for work</span>
+                    </div>
 
                     <div className="nb__right">
-                        <a href="tel:+916351015778" className="nb__cta hide-mobile">
+                        {/* Command Palette Trigger */}
+                        <button 
+                            className="cp-trigger-btn interactive" 
+                            onClick={() => window.dispatchEvent(new Event('open-command-palette'))}
+                            aria-label="Open Command Palette"
+                        >
+                            <Search size={14} />
+                            <span className="hide-mobile">Space x2</span>
+                        </button>
+                        <Link to="/contact" className="nb__cta hide-mobile interactive">
                             <div className="clip">
                                 <div className="hover-text-wrap">
-                                    <span>SCHEDULE A CALL</span>
-                                    <span className="hover-text-bottom">SCHEDULE A CALL</span>
+                                    <span>CONTACT ME</span>
+                                    <span className="hover-text-bottom">CONTACT ME</span>
                                 </div>
                             </div>
-                        </a>
+                        </Link>
                         <button
-                            className={`nb__toggle ${isOpen ? 'is-open' : ''}`}
+                            className={`nb__toggle interactive ${isOpen ? 'is-open' : ''}`}
                             onClick={() => setIsOpen(v => !v)}
                             aria-label="Toggle menu"
                         >
@@ -72,7 +88,7 @@ const Navbar = () => {
                                 >
                                     <Link
                                         to={lnk.to}
-                                        className={`nb__menu-col${location.pathname === lnk.to ? ' is-active' : ''}`}
+                                        className={`nb__menu-col interactive ${location.pathname === lnk.to ? ' is-active' : ''}`}
                                         onClick={() => setIsOpen(false)}
                                     >
                                         <div className="nb__col-preview" />
@@ -89,13 +105,13 @@ const Navbar = () => {
                         </div>
                         {/* Footer row */}
                         <div className="nb__overlay-footer">
-                            <a href="/Darshan_Fresher_Resume.pdf" download className="nb__resume-link">
+                            <a href="/Darshan_Fresher_Resume.pdf" download className="nb__resume-link interactive">
                                 Download Resume <ArrowUpRight size={14} />
                             </a>
                             <div className="nb__socials">
-                                <a href="https://github.com/satbhai444" target="_blank" rel="noreferrer">GitHub</a>
-                                <a href="https://linkedin.com/in/darshan-satbhai" target="_blank" rel="noreferrer">LinkedIn</a>
-                                <a href="https://www.instagram.com/darshannn.0801" target="_blank" rel="noreferrer">Instagram</a>
+                                <a href="https://github.com/satbhai444" target="_blank" rel="noreferrer" className="interactive">GitHub</a>
+                                <a href="https://www.linkedin.com/in/darshan-satbhai-212600423?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noreferrer" className="interactive">LinkedIn</a>
+                                <a href="https://www.instagram.com/darshaan_satbhai?igsh=c3BmMHdpY2Q4M2Ez" target="_blank" rel="noreferrer" className="interactive">Instagram</a>
                             </div>
                         </div>
                     </motion.div>

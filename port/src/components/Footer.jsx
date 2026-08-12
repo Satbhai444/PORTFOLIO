@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaWhatsapp, FaEnvelope } from 'react-icons/fa';
+import { ArrowUpRight } from 'lucide-react';
 import './Footer.css';
 
 const InstagramIcon = ({ size = 18 }) => (
@@ -24,27 +26,69 @@ const Footer = () => {
         <footer className="wf-footer">
             <div className="wf-footer-inner">
 
-                {/* Top row: brand + nav */}
-                <div className="wf-footer-top">
-                    <span className="wf-footer-brand">PORTFOLIO</span>
-                    <nav className="wf-footer-nav">
-                        <Link to="/">HOME</Link>
-                        <Link to="/about">ABOUT</Link>
-                        <Link to="/projects">PROJECTS</Link>
-                        <Link to="/contact">CONTACT</Link>
-                    </nav>
+                {/* Big CTA heading */}
+                <div className="wf-footer-cta" style={{ textAlign: 'center', marginBottom: '4rem' }}>
+                    <motion.h2 
+                        className="cta-huge-title"
+                        initial={{ opacity: 0, y: 40 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                        LET'S TALK
+                    </motion.h2>
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                        <Link to="/contact" className="interactive-btn-large interactive" style={{ display: 'inline-block', marginTop: '2rem' }}>
+                            START A PROJECT
+                        </Link>
+                    </motion.div>
                 </div>
 
                 <div className="wf-footer-divider" />
 
-                {/* Bottom row: copyright + socials */}
+                {/* Middle row: nav links */}
+                <div className="wf-footer-mid">
+                    <div className="wf-footer-col">
+                        <span className="wf-footer-label">NAVIGATION</span>
+                        <nav className="wf-footer-nav-col">
+                            <Link to="/">Home</Link>
+                            <Link to="/about">About</Link>
+                            <Link to="/projects">Projects</Link>
+                            <Link to="/contact">Contact</Link>
+                        </nav>
+                    </div>
+                    <div className="wf-footer-col">
+                        <span className="wf-footer-label">SOCIALS</span>
+                        <div className="wf-footer-nav-col">
+                            <a href="https://github.com/satbhai444" target="_blank" rel="noopener noreferrer">GitHub</a>
+                            <a href="https://www.linkedin.com/in/darshan-satbhai-212600423?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                            <a href="https://www.instagram.com/darshaan_satbhai?igsh=c3BmMHdpY2Q4M2Ez" target="_blank" rel="noopener noreferrer">Instagram</a>
+                        </div>
+                    </div>
+                    <div className="wf-footer-col">
+                        <span className="wf-footer-label">CONTACT</span>
+                        <div className="wf-footer-nav-col">
+                            <a href="mailto:darshansatbhai38@gmail.com">Email Me</a>
+                            <a href="https://www.linkedin.com/in/darshan-satbhai-212600423?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer">LinkedIn Message</a>
+                            <a href="https://www.instagram.com/darshaan_satbhai?igsh=c3BmMHdpY2Q4M2Ez" target="_blank" rel="noopener noreferrer">Instagram DM</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="wf-footer-divider" />
+
+                {/* Bottom row: copyright + social icons */}
                 <div className="wf-footer-bottom">
-                    <p className="wf-footer-copy">© {new Date().getFullYear()} DARSHAN SATBHAI</p>
+                    <p className="wf-footer-copy">© {new Date().getFullYear()} DARSHAN SATBHAI. ALL RIGHTS RESERVED.</p>
                     <div className="wf-footer-socials">
                         <a href="https://github.com/satbhai444" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="github-hover"><FaGithub size={18} /></a>
-                        <a href="https://linkedin.com/in/darshan-satbhai" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="linkedin-hover"><FaLinkedin size={18} /></a>
-                        <a href="https://www.instagram.com/darshannn.0801?igsh=c3BmMHdpY2Q4M2Ez" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="instagram-hover"><InstagramIcon size={18} /></a>
-                        <a href="https://wa.me/916351015778?text=Hello%20Darshan%2C%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect%20with%20you!" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="whatsapp-hover"><FaWhatsapp size={18} /></a>
+                        <a href="https://www.linkedin.com/in/darshan-satbhai-212600423?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="linkedin-hover"><FaLinkedin size={18} /></a>
+                        <a href="https://www.instagram.com/darshaan_satbhai?igsh=c3BmMHdpY2Q4M2Ez" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="instagram-hover"><InstagramIcon size={18} /></a>
                         <a href="mailto:darshansatbhai38@gmail.com" aria-label="Email" className="mail-hover"><FaEnvelope size={18} /></a>
                     </div>
                 </div>
@@ -55,5 +99,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
-

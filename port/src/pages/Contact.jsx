@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { ChevronDown, ArrowUpRight } from 'lucide-react';
 import emailjs from '@emailjs/browser';
-import { Marquee, TiltCard, MarqueeTitle } from '../components/MarqueeTilt';
+import { Marquee } from '../components/MarqueeTilt';
 import './Contact.css';
 
 const EJS_SERVICE  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
@@ -19,28 +19,33 @@ const faqs = [
     { q: "What is your pricing model?", a: "I offer both fixed-price project quotes and hourly/retainer-based arrangements depending on the scope and duration of the engagement." },
 ];
 
-const FadeIn = ({ children, delay = 0 }) => (
-    <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-50px' }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay }}
-    >
-        {children}
-    </motion.div>
-);
+const FadeUp = ({ children, delay = 0, className = "" }) => {
+    const ref = useRef(null);
+    const inView = useInView(ref, { once: true, amount: 0.2 });
+    return (
+        <motion.div
+            ref={ref}
+            className={className}
+            initial={{ opacity: 0, y: 50 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
+        >
+            {children}
+        </motion.div>
+    );
+};
 
 const FaqItem = ({ faq, index }) => {
     const [open, setOpen] = useState(false);
     return (
         <motion.div
-            className="faq-item"
+            className="faq-item-v2 interactive"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.08 }}
         >
-            <button className="faq-top" onClick={() => setOpen(!open)}>
+            <button className="faq-top-v2" onClick={() => setOpen(!open)}>
                 <span>{faq.q}</span>
                 <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.3 }}>
                     <ChevronDown size={20} />
@@ -49,7 +54,7 @@ const FaqItem = ({ faq, index }) => {
             <AnimatePresence>
                 {open && (
                     <motion.div
-                        className="faq-bottom"
+                        className="faq-bottom-v2"
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
@@ -64,8 +69,8 @@ const FaqItem = ({ faq, index }) => {
 };
 
 const Contact = () => {
-    const [formData, setFormData] = useState({ firstName: '', lastName: '', email: '', message: '' });
-    const [status, setStatus] = useState('idle'); // idle | sending | success | error
+    const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+    const [status, setStatus] = useState('idle');
     const [errorMsg, setErrorMsg] = useState('');
 
     const handleChange = (e) => {
@@ -80,7 +85,7 @@ const Contact = () => {
                 EJS_SERVICE,
                 EJS_TEMPLATE,
                 {
-                    name:    `${formData.firstName} ${formData.lastName}`,
+                    name:    formData.name,
                     email:   formData.email,
                     message: formData.message,
                     title:   'New Portfolio Contact',
@@ -89,7 +94,7 @@ const Contact = () => {
                 EJS_KEY
             );
             setStatus('success');
-            setFormData({ firstName: '', lastName: '', email: '', message: '' });
+            setFormData({ name: '', email: '', message: '' });
             setTimeout(() => setStatus('idle'), 4000);
         } catch (err) {
             setStatus('error');
@@ -106,70 +111,92 @@ const Contact = () => {
     }[status];
 
     return (
-        <div className="page-wrapper">
-            {/* ═══════ CONTACT HERO ═══════ */}
-            <section className="contact-hero">
-                {/* Background marquee */}
-                <div className="contact-bg-marquee">
-                    <div className="text-style-allcaps text-color-muted" style={{ padding: '0 2.5rem', marginBottom: '1rem' }}>Contact</div>
-                    <MarqueeTitle title="LET'S TALK" speed={22} />
+        <div className="contact-v2">
+            
+            {/* ═══════ HERO SECTION ═══════ */}
+            <section className="contact-hero-v2">
+                <div className="hero-v2-content">
+                    <motion.h1 
+                        className="hero-v2-title"
+                        initial={{ opacity: 0, y: 100 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                        <span className="hollow-text interactive">SAY</span><br/>
+                        HELLO
+                    </motion.h1>
                 </div>
-
-                {/* Centered floating form card */}
-                <FadeIn delay={0.3}>
-                    <div className="contact-form-card">
-                        <p className="contact-intro-text">Please fill out the form below and I will<br />be in touch within 24 hours.</p>
-                        <form className="contact-form contact-form-light" onSubmit={handleSubmit}>
-                            <div className="form-row">
-                                <div className="form-field">
-                                    <label>First Name</label>
-                                    <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required placeholder="John" />
-                                </div>
-                                <div className="form-field">
-                                    <label>Last Name</label>
-                                    <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required placeholder="Doe" />
-                                </div>
-                            </div>
-                            <div className="form-field">
-                                <label>Your Email</label>
-                                <input type="email" name="email" value={formData.email} onChange={handleChange} required placeholder="john@example.com" />
-                            </div>
-                            <div className="form-field">
-                                <label>Message</label>
-                                <textarea name="message" value={formData.message} onChange={handleChange} required rows="5" placeholder="Tell me about your project..." />
-                            </div>
-                            <button
-                                type="submit"
-                                className={`contact-submit-btn${status === 'error' ? ' btn-error' : ''}`}
-                                disabled={status === 'sending'}
-                            >
-                                {btnLabel}
-                            </button>
-                        </form>
-                    </div>
-                </FadeIn>
             </section>
 
-            {/* MARQUEE */}
+            {/* ═══════ FORM & INFO SECTION ═══════ */}
+            <section className="padding-global padding-section-large" style={{ paddingTop: '0' }}>
+                <div className="container-large">
+                    <div className="contact-grid">
+                        
+                        {/* Contact Info */}
+                        <FadeUp className="contact-info">
+                            <h3 className="contact-info-title">Let's start a project together.</h3>
+                            <p className="contact-info-desc">Fill out the form and I'll get back to you within 24 hours. Or, just shoot me a direct email.</p>
+                            
+                            <div className="contact-methods">
+                                <a href="mailto:darshansatbhai38@gmail.com" className="interactive method-link">
+                                    darshansatbhai38@gmail.com <ArrowUpRight size={16}/>
+                                </a>
+                                <a href="https://www.linkedin.com/in/darshan-satbhai-212600423?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noreferrer" className="interactive method-link">
+                                    LinkedIn <ArrowUpRight size={16}/>
+                                </a>
+                            </div>
+                        </FadeUp>
+
+                        {/* Minimalist Form */}
+                        <FadeUp delay={0.2} className="contact-form-wrapper">
+                            <form className="sleek-form" onSubmit={handleSubmit}>
+                                <div className="input-group interactive">
+                                    <input type="text" name="name" value={formData.name} onChange={handleChange} required placeholder=" " />
+                                    <label>Your Name</label>
+                                </div>
+                                
+                                <div className="input-group interactive">
+                                    <input type="email" name="email" value={formData.email} onChange={handleChange} required placeholder=" " />
+                                    <label>Email Address</label>
+                                </div>
+                                
+                                <div className="input-group interactive">
+                                    <textarea name="message" value={formData.message} onChange={handleChange} required rows="4" placeholder=" " />
+                                    <label>Project Details</label>
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    className={`interactive-btn-large interactive ${status === 'error' ? 'btn-error' : ''}`}
+                                    disabled={status === 'sending'}
+                                    style={{ width: '100%', marginTop: '1rem', background: status === 'success' ? '#10b981' : 'white' }}
+                                >
+                                    {btnLabel}
+                                </button>
+                            </form>
+                        </FadeUp>
+                    </div>
+                </div>
+            </section>
+
             <Marquee items={marqueeItems} />
 
             {/* ═══════ FAQ SECTION ═══════ */}
-            <section className="contact-faq">
-                <div className="padding-global padding-section-large">
-                    <div className="container-large">
-                        <FadeIn>
-                            <div className="text-style-allcaps text-color-muted" style={{ marginBottom: '3rem' }}>FAQ</div>
-                        </FadeIn>
-                        <div className="faq-list">
-                            {faqs.map((faq, idx) => (
-                                <FaqItem key={idx} faq={faq} index={idx} />
-                            ))}
-                        </div>
+            <section className="padding-global padding-section-large">
+                <div className="container-large">
+                    <FadeUp>
+                        <div className="section-label">Questions</div>
+                    </FadeUp>
+                    <div className="faq-list-v2">
+                        {faqs.map((faq, idx) => (
+                            <FaqItem key={idx} faq={faq} index={idx} />
+                        ))}
                     </div>
                 </div>
             </section>
-            {/* MARQUEE light reverse */}
-            <Marquee items={marqueeItems} light reverse />
+
+            <Marquee items={marqueeItems} reverse />
 
         </div>
     );

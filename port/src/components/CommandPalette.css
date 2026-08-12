@@ -1,0 +1,143 @@
+.cp-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 15vh;
+}
+
+.cp-modal {
+    width: 100%;
+    max-width: 600px;
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05) inset;
+}
+
+.cp-search-header {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+    gap: 16px;
+}
+
+.cp-apple-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cp-search-icon {
+    color: #888;
+    margin-right: 12px;
+}
+
+.cp-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 1.1rem;
+    font-family: inherit;
+}
+
+.cp-input::placeholder {
+    color: #555;
+}
+
+.cp-badge {
+    background: rgba(255, 255, 255, 0.1);
+    color: #aaa;
+    font-size: 0.7rem;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.cp-error {
+    padding: 12px 20px;
+    background: rgba(255, 59, 48, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cp-error-text {
+    color: #ff3b30;
+    font-size: 0.9rem;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+.cp-list {
+    padding: 16px 8px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.cp-list-label {
+    padding: 0 12px 8px 12px;
+    font-size: 0.75rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+.cp-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: none;
+    color: #ccc;
+    font-size: 0.95rem;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.cp-item-icon {
+    margin-right: 12px;
+    color: #888;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s;
+}
+
+.cp-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+}
+
+.cp-item:hover .cp-item-icon {
+    color: #fff;
+}
+
+.cp-empty {
+    padding: 20px;
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.cp-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    background: #050505;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    color: #555;
+    font-size: 0.75rem;
+    font-weight: 500;
+}

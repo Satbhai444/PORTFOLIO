@@ -1,0 +1,22 @@
+.transition-overlay-container {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999999;
+    display: flex;
+    pointer-events: none; /* so it doesn't block clicks when invisible */
+}
+
+.transition-column {
+    flex: 1;
+    height: 100%;
+    background-color: #050505; /* Deep black for cinematic wipe */
+    transform-origin: top;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8); /* Dark shadow to separate from content */
+}
+
+/* For exit animation (when leaving a page), the columns should grow from the bottom */
+/* But framer-motion doesn't easily let us change transform-origin dynamically between initial/exit without custom variants. */
+/* A simple trick is to just keep transform-origin top and let it drop down, or use the layout engine. */
+/* We will set transform-origin in the JSX if needed, but 'top' works well for both revealing (shrinks to top) and hiding (grows from top) */

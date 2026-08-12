@@ -1,0 +1,387 @@
+/* ═══════ GITHUB STATS WIDGET ═══════ */
+.gh-widget {
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 32px;
+    margin-top: 2rem;
+}
+
+/* Header */
+.gh-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.gh-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.gh-terminal-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.gh-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+}
+
+.gh-subtitle {
+    font-size: 0.75rem;
+    color: #666;
+    margin: 2px 0 0 0;
+    font-family: 'Courier New', monospace;
+}
+
+.gh-profile-link {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.gh-profile-link:hover {
+    color: #ffffff;
+}
+
+/* Stats Grid */
+.gh-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.gh-stat-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-align: center;
+    transition: border-color 0.3s, background 0.3s;
+}
+
+.gh-stat-card:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.gh-stat-icon {
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: center;
+}
+
+.gh-stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1;
+    margin-bottom: 6px;
+}
+
+.gh-stat-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #666;
+}
+
+/* Languages */
+.gh-languages {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.gh-lang-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.gh-lang-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.gh-lang-tag {
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 100vw;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* WinDeck Row */
+.gh-windeck-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.gh-windeck-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.gh-windeck-icon {
+    color: #666;
+}
+
+.gh-windeck-label {
+    font-size: 0.75rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+}
+
+.gh-windeck-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #ffffff;
+    text-decoration: none;
+    font-family: 'Courier New', monospace;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: opacity 0.2s;
+}
+
+.gh-windeck-name:hover {
+    opacity: 0.7;
+}
+
+.gh-commits-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: transparent;
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.gh-commits-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* ═══════ COMMITS MODAL ═══════ */
+.gh-commits-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.gh-commits-modal {
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 640px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.gh-commits-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gh-commits-header h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+}
+
+.gh-commits-header p {
+    font-size: 0.75rem;
+    color: #666;
+    margin: 4px 0 0 0;
+    font-family: 'Courier New', monospace;
+}
+
+.gh-commits-close {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+    color: #888;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.gh-commits-close:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+.gh-commits-list {
+    overflow-y: auto;
+    padding: 8px 0;
+    flex: 1;
+}
+
+.gh-commits-loading {
+    padding: 40px;
+    text-align: center;
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.gh-commit-item {
+    display: flex;
+    gap: 16px;
+    padding: 16px 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    transition: background 0.2s;
+}
+
+.gh-commit-item:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.gh-commit-item:last-child {
+    border-bottom: none;
+}
+
+.gh-commit-dot {
+    width: 8px;
+    height: 8px;
+    min-width: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    margin-top: 6px;
+    position: relative;
+}
+
+.gh-commit-item:first-child .gh-commit-dot {
+    background: #ffffff;
+}
+
+.gh-commit-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.gh-commit-msg {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #ffffff;
+    margin: 0 0 6px 0;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+.gh-commit-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.7rem;
+    color: #555;
+    flex-wrap: wrap;
+}
+
+.gh-commit-sha {
+    font-family: 'Courier New', monospace;
+    color: #888;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1px 6px;
+    border-radius: 4px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .gh-widget {
+        padding: 24px 20px;
+    }
+
+    .gh-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .gh-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .gh-windeck-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .gh-commits-modal {
+        max-height: 90vh;
+    }
+
+    .gh-commit-item {
+        padding: 14px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .gh-stat-value {
+        font-size: 1.4rem;
+    }
+
+    .gh-commits-overlay {
+        padding: 12px;
+    }
+}

@@ -1,0 +1,53 @@
+.parallax-bg-container {
+    position: fixed;
+    inset: 0;
+    z-index: -1; /* Keep it strictly behind all actual content */
+    pointer-events: none; /* Make sure users can't click or select the text */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.parallax-text {
+    position: absolute;
+    font-size: 18vw;
+    font-weight: 900;
+    font-family: 'Inter', sans-serif, monospace;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+    user-select: none;
+}
+
+/* TOP TEXT: Hollow, tilted, slow move down */
+.p-top {
+    top: 5%;
+    left: -10%;
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.05);
+    transform: rotate(-3deg);
+}
+
+/* MID TEXT: Solid very faint, tilted, move up */
+.p-mid {
+    top: 45%;
+    right: -15%;
+    color: rgba(255, 255, 255, 0.02);
+    transform: rotate(2deg);
+}
+
+/* BOTTOM TEXT: Hollow, tilted, fast move down */
+.p-bot {
+    bottom: -10%;
+    left: 5%;
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(39, 201, 63, 0.05); /* very faint green tint */
+    transform: rotate(-5deg);
+}
+
+@media (max-width: 768px) {
+    .hide-mobile {
+        display: none !important;
+    }
+}

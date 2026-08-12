@@ -1,162 +1,213 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, Command, Home, User, Briefcase, Mail, Download, Github } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Command, Download, Mail, Github, Sun, Search, Cpu, Bomb, Zap, Eye, PartyPopper } from 'lucide-react';
+import confetti from 'canvas-confetti';
+import './CommandPalette.css';
 
 const CommandPalette = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [query, setQuery] = useState('');
+    const [search, setSearch] = useState('');
+    const [errorMsg, setErrorMsg] = useState('');
     const navigate = useNavigate();
+    const inputRef = useRef(null);
+    const lastSpaceTime = useRef(0);
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-                e.preventDefault();
-                setIsOpen(prev => !prev);
+            if (e.key === ' ' && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+
+            if (e.key === ' ') {
+                const now = Date.now();
+                if (now - lastSpaceTime.current < 300) {
+                    e.preventDefault();
+                    setIsOpen(true);
+                    setErrorMsg('');
+                    setSearch('');
+                    lastSpaceTime.current = 0;
+                } else {
+                    lastSpaceTime.current = now;
+                }
             }
-            if (e.key === 'Escape') setIsOpen(false);
+            if (e.key === 'Escape' && isOpen) setIsOpen(false);
         };
+
+        const handleOpenEvent = () => {
+            setIsOpen(true);
+            setErrorMsg('');
+            setSearch('');
+        };
+
         window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, []);
+        window.addEventListener('open-command-palette', handleOpenEvent);
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            window.removeEventListener('open-command-palette', handleOpenEvent);
+        };
+    }, [isOpen]);
+
+    useEffect(() => {
+        if (isOpen && inputRef.current) inputRef.current.focus();
+    }, [isOpen]);
 
     const commands = [
-        { name: 'Go to Home', icon: <Home size={18} />, action: () => navigate('/') },
-        { name: 'About Me', icon: <User size={18} />, action: () => navigate('/about') },
-        { name: 'View Projects', icon: <Briefcase size={18} />, action: () => navigate('/projects') },
-        { name: 'Contact Me', icon: <Mail size={18} />, action: () => navigate('/contact') },
-        { name: 'Download Resume', icon: <Download size={18} />, action: () => window.open('/Darshan_Fresher_Resume.pdf') },
-        { name: 'GitHub Profile', icon: <Github size={18} />, action: () => window.open('https://github.com/satbhai444') },
+        {
+            id: 'download_resume',
+            title: 'Download Resume',
+            icon: <Download size={16} />,
+            action: () => {
+                const link = document.createElement('a');
+                link.href = '/Darshan_Fresher_Resume.pdf';
+                link.download = 'Darshan_Satbhai_Resume.pdf';
+                link.click();
+                setIsOpen(false);
+            }
+        },
+        {
+            id: 'hire_me',
+            title: 'Hire Me / Contact',
+            icon: <Mail size={16} />,
+            action: () => {
+                navigate('/contact');
+                setIsOpen(false);
+            }
+        },
+        {
+            id: 'github',
+            title: 'View GitHub',
+            icon: <Github size={16} />,
+            action: () => {
+                window.open('https://github.com/satbhai444', '_blank');
+                setIsOpen(false);
+            }
+        },
+        {
+            id: 'windeck_architecture',
+            title: 'View WinDeck Architecture',
+            icon: <Cpu size={16} />,
+            action: () => {
+                setIsOpen(false);
+                window.dispatchEvent(new Event('open-windeck-overlay'));
+            }
+        },
+        {
+            id: 'self_destruct',
+            title: 'Initiate Self-Destruct',
+            icon: <Bomb size={16} color="#ff3b30" />,
+            action: () => {
+                setIsOpen(false);
+                window.dispatchEvent(new Event('trigger-self-destruct'));
+            }
+        },
+        {
+            id: 'matrix_protocol',
+            title: 'Matrix Protocol',
+            icon: <Zap size={16} color="#00ff41" />,
+            action: () => {
+                setIsOpen(false);
+                window.dispatchEvent(new Event('trigger-matrix'));
+            }
+        },
+        {
+            id: 'invert_reality',
+            title: 'Invert Reality',
+            icon: <Eye size={16} />,
+            action: () => {
+                setIsOpen(false);
+                document.body.classList.toggle('invert-reality');
+            }
+        },
+        {
+            id: 'deploy_confetti',
+            title: 'Deploy Confetti',
+            icon: <PartyPopper size={16} color="#ffbd2e" />,
+            action: () => {
+                setIsOpen(false);
+                confetti({
+                    particleCount: 150,
+                    spread: 80,
+                    origin: { y: 0.6 },
+                    colors: ['#ffffff', '#888888', '#333333']
+                });
+            }
+        },
+        {
+            id: 'light_mode',
+            title: 'Toggle Light Mode',
+            icon: <Sun size={16} />,
+            action: () => {
+                setErrorMsg('Error: Engineers only work in the dark.');
+                setTimeout(() => {
+                    setIsOpen(false);
+                    setErrorMsg('');
+                }, 3000);
+            }
+        }
     ];
 
-    const filteredCommands = commands.filter(c =>
-        c.name.toLowerCase().includes(query.toLowerCase())
+    const filteredCommands = commands.filter(cmd => 
+        cmd.title.toLowerCase().includes(search.toLowerCase()) || 
+        cmd.id.toLowerCase().includes(search.toLowerCase())
     );
 
     return (
         <AnimatePresence>
             {isOpen && (
-                <div className="cmd-palette-overlay" onClick={() => setIsOpen(false)}>
-                    <motion.div
+                <div className="cp-overlay" onClick={() => setIsOpen(false)}>
+                    <motion.div 
+                        className="cp-modal"
                         initial={{ opacity: 0, scale: 0.95, y: -20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: -20 }}
-                        className="cmd-palette liquid-glass"
+                        transition={{ duration: 0.2 }}
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <div className="cmd-input-wrapper">
-                            <Search size={20} className="cmd-icon" />
-                            <input
+                        <div className="cp-search-header">
+                            <div className="cp-apple-buttons">
+                                <button className="apple-btn close" onClick={() => setIsOpen(false)} title="Close"></button>
+                                <button className="apple-btn minimize" onClick={() => setIsOpen(false)} title="Minimize"></button>
+                                <button className="apple-btn expand" onClick={() => setIsOpen(false)} title="Expand"></button>
+                            </div>
+                            <Search size={20} className="cp-search-icon" style={{ marginLeft: '12px' }} />
+                            <input 
+                                ref={inputRef}
                                 type="text"
+                                className="cp-input"
                                 placeholder="Type a command or search..."
-                                autoFocus
-                                value={query}
-                                onChange={(e) => setQuery(e.target.value)}
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
                             />
-                            <div className="cmd-shortcut">ESC</div>
+                            <div className="cp-badge">ESC</div>
                         </div>
 
-                        <div className="cmd-list">
+                        {errorMsg && (
+                            <div className="cp-error">
+                                <span className="cp-error-text">{errorMsg}</span>
+                            </div>
+                        )}
+
+                        <div className="cp-list">
+                            <div className="cp-list-label">Suggestions</div>
                             {filteredCommands.length > 0 ? (
-                                filteredCommands.map((cmd, i) => (
-                                    <div
-                                        key={i}
-                                        className="cmd-item"
-                                        onClick={() => {
-                                            cmd.action();
-                                            setIsOpen(false);
-                                        }}
+                                filteredCommands.map((cmd) => (
+                                    <button 
+                                        key={cmd.id} 
+                                        className="cp-item interactive"
+                                        onClick={cmd.action}
                                     >
-                                        <div className="cmd-item-left">
-                                            {cmd.icon}
-                                            <span>{cmd.name}</span>
-                                        </div>
-                                        <Command size={14} className="cmd-meta" />
-                                    </div>
+                                        <div className="cp-item-icon">{cmd.icon}</div>
+                                        <span>{cmd.title}</span>
+                                    </button>
                                 ))
                             ) : (
-                                <div className="cmd-no-results">No results found for "{query}"</div>
+                                <div className="cp-empty">No commands found.</div>
                             )}
                         </div>
+                        
+                        <div className="cp-footer">
+                            <Command size={14} /> <span>Command Palette</span>
+                        </div>
                     </motion.div>
-
-                    <style>{`
-                        .cmd-palette-overlay {
-                            position: fixed;
-                            top: 0;
-                            left: 0;
-                            width: 100vw;
-                            height: 100vh;
-                            background: rgba(0, 0, 0, 0.4);
-                            backdrop-filter: blur(8px);
-                            z-index: 10000;
-                            display: flex;
-                            align-items: flex-start;
-                            justify-content: center;
-                            padding-top: 15vh;
-                        }
-                        .cmd-palette {
-                            width: 100%;
-                            max-width: 600px;
-                            border: 1px solid rgba(255, 255, 255, 0.1) !important;
-                            border-radius: 20px !important;
-                            overflow: hidden;
-                            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-                        }
-                        .cmd-input-wrapper {
-                            display: flex;
-                            align-items: center;
-                            padding: 20px;
-                            gap: 15px;
-                            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-                        }
-                        .cmd-input-wrapper input {
-                            background: transparent;
-                            border: none;
-                            color: white;
-                            font-size: 1.1rem;
-                            width: 100%;
-                            outline: none;
-                        }
-                        .cmd-shortcut {
-                            background: rgba(255, 255, 255, 0.1);
-                            padding: 4px 8px;
-                            border-radius: 6px;
-                            font-size: 0.7rem;
-                            font-weight: 700;
-                        }
-                        .cmd-list {
-                            padding: 10px;
-                            max-height: 400px;
-                            overflow-y: auto;
-                        }
-                        .cmd-item {
-                            display: flex;
-                            align-items: center;
-                            justify-content: space-between;
-                            padding: 12px 15px;
-                            border-radius: 12px;
-                            cursor: pointer;
-                            transition: all 0.2s ease;
-                        }
-                        .cmd-item:hover {
-                            background: var(--accent-color);
-                            color: white;
-                        }
-                        .cmd-item-left {
-                            display: flex;
-                            align-items: center;
-                            gap: 12px;
-                        }
-                        .cmd-meta {
-                            opacity: 0.5;
-                        }
-                        .cmd-no-results {
-                            padding: 20px;
-                            text-align: center;
-                            color: var(--text-secondary);
-                        }
-                    `}</style>
                 </div>
             )}
         </AnimatePresence>
