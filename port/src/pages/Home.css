@@ -258,23 +258,6 @@
   -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
 }
 
-.interactive-btn-large {
-  display: inline-block;
-  padding: 1.5rem 4rem;
-  background: white;
-  color: black;
-  border-radius: 100px;
-  font-weight: 700;
-  font-size: 1.25rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: transform 0.3s ease;
-}
-
-.interactive-btn-large:hover {
-  transform: scale(1.05);
-}
 
 /* ═══════════════════════════════════ */
 /*            RESPONSIVE              */
@@ -311,8 +294,12 @@
     min-height: 250px;
   }
   
-  .interactive-btn-large {
-    padding: 1rem 2rem;
-    font-size: 1rem;
+  .bento-item {
+    padding: 1.5rem;
+    word-break: break-word;
+  }
+  
+  .bento-title {
+    font-size: 1.5rem;
   }
 }
