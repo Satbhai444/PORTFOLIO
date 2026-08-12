@@ -310,4 +310,9 @@
     grid-column: span 1;
     min-height: 250px;
   }
+  
+  .interactive-btn-large {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
 }

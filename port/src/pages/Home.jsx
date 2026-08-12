@@ -132,7 +132,7 @@ const Home = () => {
                                 </p>
                             </div>
                             <Link to="/projects" className="interactive-btn interactive">
-                                EXPLORE CASE STUDY <ArrowUpRight />
+                                EXPLORE PROJECT <ArrowUpRight />
                             </Link>
                         </div>
                     </div>
