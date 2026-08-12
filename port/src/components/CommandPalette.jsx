@@ -52,32 +52,11 @@ const CommandPalette = () => {
 
     const commands = [
         {
-            id: 'download_resume',
-            title: 'Download Resume',
-            icon: <Download size={16} />,
-            action: () => {
-                const link = document.createElement('a');
-                link.href = '/Darshan_Fresher_Resume.pdf';
-                link.download = 'Darshan_Satbhai_Resume.pdf';
-                link.click();
-                setIsOpen(false);
-            }
-        },
-        {
             id: 'hire_me',
             title: 'Hire Me / Contact',
             icon: <Mail size={16} />,
             action: () => {
                 navigate('/contact');
-                setIsOpen(false);
-            }
-        },
-        {
-            id: 'github',
-            title: 'View GitHub',
-            icon: <Github size={16} />,
-            action: () => {
-                window.open('https://github.com/satbhai444', '_blank');
                 setIsOpen(false);
             }
         },
