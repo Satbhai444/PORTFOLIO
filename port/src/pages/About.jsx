@@ -9,13 +9,13 @@ import ExperienceTimeline from '../components/ExperienceTimeline';
 import ParallaxBackground from '../components/ParallaxBackground';
 import './About.css';
 
-import AIGenerateReveal from '../components/AIGenerateReveal';
+import ScrollReveal from '../components/ScrollReveal';
 
 const FadeUp = ({ children, delay = 0, className = "" }) => {
     return (
-        <AIGenerateReveal delay={delay} className={className}>
+        <ScrollReveal delay={delay} className={className}>
             {children}
-        </AIGenerateReveal>
+        </ScrollReveal>
     );
 };
 

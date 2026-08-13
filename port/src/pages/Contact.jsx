@@ -19,19 +19,13 @@ const faqs = [
     { q: "What is your pricing model?", a: "I offer both fixed-price project quotes and hourly/retainer-based arrangements depending on the scope and duration of the engagement." },
 ];
 
+import ScrollReveal from '../components/ScrollReveal';
+
 const FadeUp = ({ children, delay = 0, className = "" }) => {
-    const ref = useRef(null);
-    const inView = useInView(ref, { once: true, amount: 0.2 });
     return (
-        <motion.div
-            ref={ref}
-            className={className}
-            initial={{ opacity: 0, y: 50 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
-        >
+        <ScrollReveal delay={delay} className={className}>
             {children}
-        </motion.div>
+        </ScrollReveal>
     );
 };
 

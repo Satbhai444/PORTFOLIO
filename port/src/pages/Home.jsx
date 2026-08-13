@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
-import AIGenerateReveal from '../components/AIGenerateReveal';
+import ScrollReveal from '../components/ScrollReveal';
 import CipherReveal from '../components/CipherReveal';
 import Tilt from 'react-parallax-tilt';
 import ParallaxBackground from '../components/ParallaxBackground';
@@ -10,9 +10,9 @@ import "./Home.css";
 
 const FadeUp = ({ children, delay = 0, className = "" }) => {
     return (
-        <AIGenerateReveal delay={delay} className={className}>
+        <ScrollReveal delay={delay} className={className}>
             {children}
-        </AIGenerateReveal>
+        </ScrollReveal>
     );
 };
 
@@ -146,36 +146,36 @@ const Home = () => {
                         <div className="section-label">Capabilities</div>
                     </FadeUp>
                     <div className="bento-grid">
-                        <AIGenerateReveal delay={0.1} className="bento-large interactive">
+                        <ScrollReveal delay={0.1} className="bento-large interactive">
                             <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} scale={1.02} transitionSpeed={2000} className="bento-item" style={{ height: '100%' }}>
                                 <h3>Full Stack Development</h3>
                                 <p>End-to-end architecture using React, Node.js, and Firebase. Building robust, scalable, and secure web applications.</p>
                             </Tilt>
-                        </AIGenerateReveal>
-                        <AIGenerateReveal delay={0.2} className="bento-small interactive">
+                        </ScrollReveal>
+                        <ScrollReveal delay={0.2} className="bento-small interactive">
                             <Tilt tiltMaxAngleX={10} tiltMaxAngleY={10} scale={1.05} transitionSpeed={2000} className="bento-item" style={{ height: '100%' }}>
                                 <h3>7+</h3>
                                 <p>Projects Shipped</p>
                             </Tilt>
-                        </AIGenerateReveal>
-                        <AIGenerateReveal delay={0.3} className="bento-small interactive">
+                        </ScrollReveal>
+                        <ScrollReveal delay={0.3} className="bento-small interactive">
                             <Tilt tiltMaxAngleX={10} tiltMaxAngleY={10} scale={1.05} transitionSpeed={2000} className="bento-item" style={{ height: '100%' }}>
                                 <h3>Mobile Apps</h3>
                                 <p>Cross-platform Flutter</p>
                             </Tilt>
-                        </AIGenerateReveal>
-                        <AIGenerateReveal delay={0.4} className="bento-medium interactive">
+                        </ScrollReveal>
+                        <ScrollReveal delay={0.4} className="bento-medium interactive">
                             <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} scale={1.02} transitionSpeed={2000} className="bento-item" style={{ height: '100%' }}>
                                 <h3>Interaction Design</h3>
                                 <p>Crafting micro-interactions, custom cursors, and smooth page transitions with Framer Motion and Lenis.</p>
                             </Tilt>
-                        </AIGenerateReveal>
-                        <AIGenerateReveal delay={0.5} className="bento-medium interactive">
+                        </ScrollReveal>
+                        <ScrollReveal delay={0.5} className="bento-medium interactive">
                             <Tilt tiltMaxAngleX={5} tiltMaxAngleY={5} scale={1.02} transitionSpeed={2000} className="bento-item" style={{ height: '100%' }}>
                                 <h3>AI Augmented</h3>
                                 <p>10x development speed by leveraging cutting-edge AI workflows.</p>
                             </Tilt>
-                        </AIGenerateReveal>
+                        </ScrollReveal>
                     </div>
                 </div>
             </section>
