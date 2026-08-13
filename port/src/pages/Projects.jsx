@@ -1,14 +1,15 @@
 import React from 'react';
-import { Share2, Star, Shield, Smartphone, Monitor, Info, ArrowRight, ExternalLink } from 'lucide-react';
+import { Share2, Star, Shield, Smartphone, Monitor, Info, ArrowRight, ExternalLink, Globe, Lock, Clock, Zap } from 'lucide-react';
 import ScrollReveal from '../components/ScrollReveal';
 import './Projects.css';
 
 const Projects = () => {
     return (
         <div className="ps-wrapper">
-            <div className="ps-container">
-                
-                {/* ═══════ HEADER ═══════ */}
+            {/* ═══════════════════════════════════════════ */}
+            {/*               PROJECT 1: WINDECK             */}
+            {/* ═══════════════════════════════════════════ */}
+            <div className="ps-container" style={{ marginBottom: '4rem' }}>
                 <header className="ps-header">
                     <div className="ps-app-icon">
                         <img src="/playstore_icon.jpg" alt="WinDeck App Icon" />
@@ -20,7 +21,6 @@ const Projects = () => {
                     </div>
                 </header>
 
-                {/* ═══════ STATS ROW ═══════ */}
                 <ScrollReveal delay={0.1}>
                 <div className="ps-stats-row">
                     <div className="ps-stat">
@@ -40,7 +40,6 @@ const Projects = () => {
                 </div>
                 </ScrollReveal>
 
-                {/* ═══════ ACTION BAR ═══════ */}
                 <ScrollReveal delay={0.2}>
                 <div className="ps-action-bar">
                     <a href="https://website-fawn-nine-99.vercel.app/" target="_blank" rel="noopener noreferrer" className="ps-btn-install interactive">
@@ -52,7 +51,6 @@ const Projects = () => {
                 </div>
                 </ScrollReveal>
 
-                {/* ═══════ SCREENSHOTS GALLERY ═══════ */}
                 <ScrollReveal delay={0.3}>
                 <div className="ps-gallery">
                     <img src="/windeck/1_connect_pc.png" alt="Connect PC" className="ps-gallery-img" />
@@ -63,7 +61,6 @@ const Projects = () => {
                 </div>
                 </ScrollReveal>
 
-                {/* ═══════ ABOUT THIS APP ═══════ */}
                 <ScrollReveal delay={0.1}>
                 <section className="ps-section">
                     <div className="ps-section-header">
@@ -80,7 +77,6 @@ const Projects = () => {
                 </section>
                 </ScrollReveal>
 
-                {/* ═══════ DATA SAFETY / FEATURES ═══════ */}
                 <ScrollReveal delay={0.2}>
                 <section className="ps-section">
                     <div className="ps-section-header">
@@ -118,7 +114,6 @@ const Projects = () => {
                 </section>
                 </ScrollReveal>
 
-                {/* ═══════ DEVELOPER INFO ═══════ */}
                 <ScrollReveal delay={0.2}>
                 <section className="ps-section">
                     <div className="ps-section-header">
@@ -135,39 +130,139 @@ const Projects = () => {
                     </div>
                 </section>
                 </ScrollReveal>
+            </div>
 
-                {/* ═══════ AI METRICS ═══════ */}
+            {/* ═══════════════════════════════════════════ */}
+            {/*              PROJECT 2: SPIDDYWEB             */}
+            {/* ═══════════════════════════════════════════ */}
+            <div className="ps-container" style={{ marginBottom: '4rem' }}>
+                <header className="ps-header">
+                    <div className="ps-app-icon" style={{ background: '#111', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Globe size={48} color="#ff3b30" />
+                    </div>
+                    <div className="ps-app-details">
+                        <h1 className="ps-title">SpiddyWeb</h1>
+                        <p className="ps-developer">Darshan Satbhai</p>
+                        <p className="ps-category">Secure & Anonymous File Sharing</p>
+                    </div>
+                </header>
+
+                <ScrollReveal delay={0.1}>
+                <div className="ps-stats-row">
+                    <div className="ps-stat">
+                        <div className="ps-stat-value">Free</div>
+                        <div className="ps-stat-label">Price</div>
+                    </div>
+                    <div className="ps-stat">
+                        <div className="ps-stat-value">Web App</div>
+                        <div className="ps-stat-label">Platform</div>
+                    </div>
+                    <div className="ps-stat">
+                        <div className="ps-stat-value">
+                            <span style={{ border: '1px solid #9aa0a6', padding: '0 4px', borderRadius: '4px', fontSize: '0.8rem' }}>E</span>
+                        </div>
+                        <div className="ps-stat-label">Everyone</div>
+                    </div>
+                </div>
+                </ScrollReveal>
+
+                <ScrollReveal delay={0.2}>
+                <div className="ps-action-bar">
+                    <a href="https://spiddy-web.vercel.app" target="_blank" rel="noopener noreferrer" className="ps-btn-install interactive">
+                        Open App
+                    </a>
+                    <a href="https://github.com/Satbhai444/Spiddy-Web" target="_blank" rel="noopener noreferrer" className="ps-btn-icon interactive" aria-label="GitHub">
+                        <ExternalLink size={20} />
+                    </a>
+                </div>
+                </ScrollReveal>
+
                 <ScrollReveal delay={0.3}>
+                <div className="ps-gallery">
+                    <img src="/spiddy/1.png" alt="SpiddyWeb Screenshot 1" className="ps-gallery-img" />
+                    <img src="/spiddy/2.png" alt="SpiddyWeb Screenshot 2" className="ps-gallery-img" />
+                    <img src="/spiddy/3.png" alt="SpiddyWeb Screenshot 3" className="ps-gallery-img" />
+                    <img src="/spiddy/4.png" alt="SpiddyWeb Screenshot 4" className="ps-gallery-img" />
+                    <img src="/spiddy/5.png" alt="SpiddyWeb Screenshot 5" className="ps-gallery-img" />
+                </div>
+                </ScrollReveal>
+
+                <ScrollReveal delay={0.1}>
                 <section className="ps-section">
                     <div className="ps-section-header">
-                        <h2 className="ps-section-title" style={{ color: '#27c93f' }}>AI Architecture Metrics</h2>
+                        <h2 className="ps-section-title">About this app</h2>
                         <ArrowRight size={20} className="ps-section-arrow" />
                     </div>
-                    <div className="ps-card" style={{ borderLeft: '4px solid #27c93f' }}>
-                        <h3 className="ps-card-title">Prompt Engineering Data</h3>
-                        <p className="ps-card-desc">Built 10x faster leveraging advanced LLM orchestration.</p>
+                    <div className="ps-body-text">
+                        <strong>Fast, anonymous, and secure temporary file-sharing.</strong>
+                        <br /><br />
+                        SpiddyWeb allows users to easily drop files (up to 2GB) and share them anywhere using a unique, secret 6-digit PIN without any registration or tracking.
+                    </div>
+                </section>
+                </ScrollReveal>
+
+                <ScrollReveal delay={0.2}>
+                <section className="ps-section">
+                    <div className="ps-section-header">
+                        <h2 className="ps-section-title">Key Features</h2>
+                        <ArrowRight size={20} className="ps-section-arrow" />
+                    </div>
+                    <div className="ps-card">
+                        <h3 className="ps-card-title">Capabilities</h3>
+                        <p className="ps-card-desc">With great power comes great file sharing.</p>
                         
-                        <div className="ps-stats-row" style={{ marginTop: '1rem', borderTop: 'none', padding: 0 }}>
-                            <div className="ps-stat">
-                                <div className="ps-stat-value" style={{ color: '#fff' }}>14</div>
-                                <div className="ps-stat-label">Master Prompts</div>
+                        <div className="ps-feature-item">
+                            <Lock className="ps-feature-icon" size={24} />
+                            <div className="ps-feature-content">
+                                <h4>100% Anonymous & Secure</h4>
+                                <p>No sign-ups or login required. Files are protected by a secret 6-digit PIN.</p>
                             </div>
-                            <div className="ps-stat">
-                                <div className="ps-stat-value" style={{ color: '#fff' }}>12.5K</div>
-                                <div className="ps-stat-label">Lines Generated</div>
+                        </div>
+
+                        <div className="ps-feature-item">
+                            <Clock className="ps-feature-icon" size={24} />
+                            <div className="ps-feature-content">
+                                <h4>Auto Self-Destruct</h4>
+                                <p>Privacy-first approach where files automatically expire and delete after 24 hours.</p>
                             </div>
-                            <div className="ps-stat">
-                                <div className="ps-stat-value" style={{ color: '#fff' }}>3 Days</div>
-                                <div className="ps-stat-label">Dev Time</div>
+                        </div>
+
+                        <div className="ps-feature-item">
+                            <Zap className="ps-feature-icon" size={24} />
+                            <div className="ps-feature-content">
+                                <h4>Lightning Fast & Serverless</h4>
+                                <p>Built on Django and deployed on Vercel's edge network for zero-downtime, rapid uploads, and downloads.</p>
                             </div>
                         </div>
                     </div>
                 </section>
                 </ScrollReveal>
-                
-                {/* ═══════ UPCOMING PROJECTS ═══════ */}
+
+                <ScrollReveal delay={0.2}>
+                <section className="ps-section">
+                    <div className="ps-section-header">
+                        <h2 className="ps-section-title">Developer Info</h2>
+                        <ArrowRight size={20} className="ps-section-arrow" />
+                    </div>
+                    <div className="ps-feature-item">
+                        <Info className="ps-feature-icon" size={24} />
+                        <div className="ps-feature-content">
+                            <h4>Tech Stack</h4>
+                            <p><strong>Frontend:</strong> HTML5, CSS3, Vanilla JavaScript<br/>
+                               <strong>Backend:</strong> Python, Django, Vercel Serverless Functions<br/>
+                               <strong>Assets/CDN:</strong> GitHub Raw CDN</p>
+                        </div>
+                    </div>
+                </section>
+                </ScrollReveal>
+            </div>
+
+            {/* ═══════════════════════════════════════════ */}
+            {/*              UPCOMING PROJECTS             */}
+            {/* ═══════════════════════════════════════════ */}
+            <div className="ps-container">
                 <ScrollReveal delay={0.4}>
-                <section className="ps-section" style={{ marginTop: '4rem' }}>
+                <section className="ps-section" style={{ marginTop: '2rem' }}>
                     <div className="ps-section-header">
                         <h2 className="ps-section-title">Upcoming Projects</h2>
                     </div>
@@ -184,23 +279,11 @@ const Projects = () => {
                                 <p><strong>Stack:</strong> React, Node.js, OpenAI API</p>
                             </div>
                         </div>
-
-                        {/* Dummy Project 2 */}
-                        <div className="ps-card interactive" style={{ borderTop: '4px solid #ff5f56', background: 'rgba(255, 255, 255, 0.03)' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                                <h3 className="ps-card-title" style={{ fontSize: '1.3rem' }}>E-Commerce Suite</h3>
-                                <span style={{ fontSize: '0.7rem', padding: '4px 8px', background: 'rgba(255,255,255,0.1)', borderRadius: '4px', color: '#ff5f56' }}>In Progress</span>
-                            </div>
-                            <p className="ps-card-desc" style={{ marginTop: '0.5rem', marginBottom: '1.5rem' }}>A full-stack Flutter application with Firebase backend, real-time cart, and payment gateway integration.</p>
-                            <div className="ps-feature-content">
-                                <p><strong>Stack:</strong> Flutter, Firebase, Stripe</p>
-                            </div>
-                        </div>
                     </div>
                 </section>
                 </ScrollReveal>
-
             </div>
+
         </div>
     );
 };
