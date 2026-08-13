@@ -37,6 +37,16 @@ const Navbar = () => {
                     </div>
 
                     <div className="nb__right">
+                        {/* Terminal Trigger */}
+                        <button 
+                            className="cp-trigger-btn interactive" 
+                            onClick={() => window.dispatchEvent(new Event('open-terminal'))}
+                            aria-label="Open Developer Terminal"
+                            style={{ marginRight: '8px', padding: '0 12px' }}
+                        >
+                            <span>&gt;_</span>
+                        </button>
+                        
                         {/* Command Palette Trigger */}
                         <button 
                             className="cp-trigger-btn interactive" 

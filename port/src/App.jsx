@@ -18,6 +18,7 @@ import WinDeckOverlay from './components/WinDeckOverlay';
 import BrowserModal from './components/BrowserModal';
 import MatrixOverlay from './components/MatrixOverlay';
 import KonamiGame from './components/KonamiGame';
+import DeveloperTerminal from './components/DeveloperTerminal';
 
 // Styles
 import './index.css';
@@ -164,6 +165,7 @@ const App = () => {
         <MatrixOverlay />
         <KonamiGame />
         <BrowserModal />
+        <DeveloperTerminal />
         <Navbar />
         <main>
           <AnimatedRoutes />
