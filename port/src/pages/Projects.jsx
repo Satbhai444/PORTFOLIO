@@ -10,7 +10,7 @@ const Projects = () => {
                 {/* ═══════ HEADER ═══════ */}
                 <header className="ps-header">
                     <div className="ps-app-icon">
-                        <img src="/windeck/3_system_control.png" alt="WinDeck App Icon" />
+                        <img src="/playstore_icon.jpg" alt="WinDeck App Icon" />
                     </div>
                     <div className="ps-app-details">
                         <h1 className="ps-title">WinDeck - PC Control Suite</h1>
