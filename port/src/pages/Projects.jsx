@@ -58,7 +58,7 @@ const PROJECTS_DATA = {
         price: 'Free',
         platform: 'Web App',
         age: 'E',
-        iconUrl: '/spiddy/1.png', // Fallback to first screenshot as icon
+        iconUrl: '/spiddy/icon.jpg',
         actionBtn: { text: 'Open App', link: 'https://spiddy-web.vercel.app' },
         githubLink: 'https://github.com/Satbhai444/Spiddy-Web',
         gallery: [
