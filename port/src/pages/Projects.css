@@ -309,3 +309,65 @@
         border-radius: 16px;
     }
 }
+
+/* Suggestions Grid */
+.ps-suggestions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.ps-suggestion-card {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.ps-suggestion-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.ps-suggestion-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-right: 16px;
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.ps-suggestion-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ps-suggestion-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.ps-suggestion-details h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0;
+    color: #ffffff;
+}
+
+.ps-suggestion-details p {
+    font-size: 0.75rem;
+    color: #888888;
+    margin: 4px 0 0 0;
+}
