@@ -38,7 +38,27 @@
     overflow: hidden;
 }
 
-/* 4. Lens Refraction Glare (Diagonal Sweep) */
+/* 4. Fix for "Invert Reality" (Light Theme) */
+body.invert-reality .mac-dock {
+    /* Make it bright *before* invert so it becomes beautifully dark/frosted *after* invert */
+    backdrop-filter: saturate(400%) contrast(130%) brightness(1.6);
+    -webkit-backdrop-filter: saturate(400%) contrast(130%) brightness(1.6);
+    
+    /* Pre-inverted shadows: 
+       White (255) becomes Black (0) after invert!
+       Black (0) becomes White (255) after invert! */
+    box-shadow: 
+        0 25px 50px rgba(255, 255, 255, 0.5),        /* Becomes deep black outer shadow */
+        inset 0 4px 5px rgba(0, 0, 0, 0.5),          /* Becomes intense white top glare */
+        inset 0 -4px 5px rgba(255, 255, 255, 0.6),   /* Becomes intense black bottom shadow */
+        inset 3px 0 5px rgba(0, 0, 0, 0.2),          /* Left Rim */
+        inset -3px 0 5px rgba(0, 0, 0, 0.2),         /* Right Rim */
+        inset 0 0 15px rgba(255, 255, 255, 0.3);     /* Inner body depth */
+        
+    border: 1px solid rgba(0, 0, 0, 0.4);            /* Becomes white border */
+}
+
+/* 5. Lens Refraction Glare (Diagonal Sweep) */
 .mac-dock::before {
     content: '';
     position: absolute;
