@@ -39,7 +39,7 @@
 }
 
 /* 4. Fix for "Invert Reality" (Light Theme) */
-body.invert-reality .mac-dock {
+html.invert-reality .mac-dock {
     /* Make it bright *before* invert so it becomes beautifully dark/frosted *after* invert */
     backdrop-filter: saturate(400%) contrast(130%) brightness(1.6);
     -webkit-backdrop-filter: saturate(400%) contrast(130%) brightness(1.6);

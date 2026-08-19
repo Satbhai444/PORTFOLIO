@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Command, Download, Mail, Github, Sun, Search, Cpu, Bomb, Zap, Eye, PartyPopper } from 'lucide-react';
+import { Command, Download, Mail, Github, Sun, Search, Cpu, Bomb, Zap, Eye, PartyPopper, Moon } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import './CommandPalette.css';
 
@@ -90,10 +90,10 @@ const CommandPalette = () => {
         {
             id: 'invert_reality',
             title: 'Invert Reality',
-            icon: <Eye size={16} />,
+            icon: <Moon size={18} />,
             action: () => {
+                document.documentElement.classList.toggle('invert-reality');
                 setIsOpen(false);
-                document.body.classList.toggle('invert-reality');
             }
         },
         {

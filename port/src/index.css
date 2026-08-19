@@ -265,13 +265,13 @@ img {
 }
 
 /* Invert Reality Command */
-body.invert-reality {
+html.invert-reality {
     filter: invert(1) hue-rotate(180deg);
-    background-color: white;
 }
-body.invert-reality img,
-body.invert-reality video,
-body.invert-reality iframe,
-body.invert-reality canvas {
+
+html.invert-reality img,
+html.invert-reality video,
+html.invert-reality iframe,
+html.invert-reality canvas {
     filter: invert(1) hue-rotate(180deg);
 }
