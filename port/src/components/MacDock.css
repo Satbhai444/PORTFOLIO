@@ -1,0 +1,131 @@
+.mac-dock-container {
+    position: fixed;
+    bottom: 25px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 1000;
+    pointer-events: none; /* Allows clicking through the container */
+}
+
+.mac-dock {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    padding: 12px 18px;
+    
+    /* 1. Transparent Body - No grey overlay, let the filter do the work */
+    background: transparent;
+    
+    /* 2. Pure Lens Filter: NO BLUR at all. Just deep saturation and contrast */
+    backdrop-filter: saturate(400%) contrast(130%) brightness(0.7);
+    -webkit-backdrop-filter: saturate(400%) contrast(130%) brightness(0.7);
+    
+    /* 3. Extreme Glass Curve Highlights */
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.9),                  /* Deep Outer Shadow */
+        inset 0 4px 5px rgba(255, 255, 255, 0.5),        /* Intense Top Curve Glare */
+        inset 0 -4px 5px rgba(0, 0, 0, 0.9),             /* Intense Bottom Inner Shadow */
+        inset 3px 0 5px rgba(255, 255, 255, 0.2),        /* Left Rim */
+        inset -3px 0 5px rgba(255, 255, 255, 0.2),       /* Right Rim */
+        inset 0 0 15px rgba(0, 0, 0, 0.5);               /* Inner body depth */
+    
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    pointer-events: auto;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 4. Lens Refraction Glare (Diagonal Sweep) */
+.mac-dock::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.15) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-25deg);
+    animation: glass-glare 6s infinite;
+    pointer-events: none;
+}
+
+@keyframes glass-glare {
+    0% { left: -100%; }
+    20% { left: 200%; }
+    100% { left: 200%; }
+}
+
+.dock-item-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
+
+.dock-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    color: rgba(255, 255, 255, 0.6);
+    transition: color 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+}
+
+.dock-item:hover, .dock-item.active {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.dock-indicator {
+    width: 4px;
+    height: 4px;
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -8px;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+.dock-divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0 4px;
+    align-self: center;
+}
+
+@media (max-width: 768px) {
+    .mac-dock {
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 22px;
+    }
+    .dock-item {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+    }
+    .dock-item svg {
+        width: 20px;
+        height: 20px;
+    }
+    .mac-dock-container {
+        bottom: 15px;
+    }
+}

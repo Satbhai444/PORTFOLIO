@@ -10,12 +10,12 @@ import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
 
 // Components
-import Navbar from './components/Navbar';
+// import Navbar from './components/Navbar';
+import MacDock from './components/MacDock';
 import Footer from './components/Footer';
 import BackToHome from './components/BackToHome';
 import CommandPalette from './components/CommandPalette';
 import WinDeckOverlay from './components/WinDeckOverlay';
-import BrowserModal from './components/BrowserModal';
 import MatrixOverlay from './components/MatrixOverlay';
 import KonamiGame from './components/KonamiGame';
 import DeveloperTerminal from './components/DeveloperTerminal';
@@ -99,23 +99,6 @@ const App = () => {
     const handleSelfDestruct = () => setIsSelfDestructing(true);
     window.addEventListener('trigger-self-destruct', handleSelfDestruct);
 
-    // Global Link Interceptor for Built-in Browser
-    const handleGlobalClick = (e) => {
-      const link = e.target.closest('a');
-      if (link && link.href) {
-        const isExternal = link.hostname && link.hostname !== window.location.hostname;
-        const isTargetBlank = link.target === '_blank';
-        
-        if ((isExternal || isTargetBlank) && link.href.startsWith('http')) {
-          e.preventDefault();
-          window.dispatchEvent(new CustomEvent('open-browser', {
-            detail: { url: link.href }
-          }));
-        }
-      }
-    };
-    document.addEventListener('click', handleGlobalClick);
-
     // Konami Code Logic
     const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
     let konamiIndex = 0;
@@ -150,7 +133,6 @@ const App = () => {
 
     return () => {
       window.removeEventListener('trigger-self-destruct', handleSelfDestruct);
-      document.removeEventListener('click', handleGlobalClick);
       document.removeEventListener('keydown', handleKonami);
       document.removeEventListener('touchstart', handleMobileTap);
     };
@@ -164,9 +146,9 @@ const App = () => {
         <WinDeckOverlay />
         <MatrixOverlay />
         <KonamiGame />
-        <BrowserModal />
         <DeveloperTerminal />
-        <Navbar />
+        {/* <Navbar /> */}
+        <MacDock />
         <main>
           <AnimatedRoutes />
         </main>

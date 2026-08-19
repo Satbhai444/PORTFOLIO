@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, Search } from 'lucide-react';
+import { ArrowUpRight, Search, Grip, X } from 'lucide-react';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -68,9 +68,19 @@ const Navbar = () => {
                             className={`nb__toggle interactive ${isOpen ? 'is-open' : ''}`}
                             onClick={() => setIsOpen(v => !v)}
                             aria-label="Toggle menu"
+                            style={{ padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', background: 'transparent', color: isOpen ? '#000' : '#fff' }}
                         >
-                            <span className="nb__bar" />
-                            <span className="nb__bar" />
+                            <AnimatePresence mode="wait">
+                                {isOpen ? (
+                                    <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.2 }}>
+                                        <X size={26} strokeWidth={1.5} />
+                                    </motion.div>
+                                ) : (
+                                    <motion.div key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.2 }}>
+                                        <Grip size={26} strokeWidth={1.5} />
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </button>
                     </div>
                 </div>

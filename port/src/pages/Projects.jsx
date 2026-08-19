@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Share2, Shield, Smartphone, Monitor, Info, ArrowRight, ExternalLink, Lock, Clock, Zap } from 'lucide-react';
+import React, { useState } from 'react'; 
+import { Share2, Shield, Smartphone, Monitor, Info, ArrowRight, ExternalLink, Lock, Clock, Zap, Code, Terminal, Sparkles, FileText } from 'lucide-react';
 import ScrollReveal from '../components/ScrollReveal';
 import './Projects.css';
 
@@ -8,7 +8,7 @@ const PROJECTS_DATA = {
         id: 'windeck',
         title: 'WinDeck - PC Control Suite',
         developer: 'Darshan Satbhai',
-        category: 'Contains ads · Productivity',
+        category: 'Productivity',
         price: 'Free',
         platform: 'Utility',
         age: 'E',
@@ -94,6 +94,74 @@ const PROJECTS_DATA = {
             }
         ],
         devStack: 'Frontend: HTML5, CSS3, Vanilla JavaScript\nBackend: Python, Django, Vercel Serverless Functions\nAssets/CDN: GitHub Raw CDN'
+    },
+    codedoctor: {
+        id: 'codedoctor',
+        title: 'CodeDoctor',
+        developer: 'Darshan Satbhai',
+        category: 'Developer Tools',
+        price: 'Free',
+        platform: 'VS Code Extension',
+        age: 'Dev',
+        iconUrl: '/codedoctor/icon.jpg',
+        actionBtn: { text: 'Marketplace', link: 'https://marketplace.visualstudio.com/items?itemName=satbhai444.codedoctor' },
+        githubLink: 'https://github.com/satbhai444/codedoctor',
+        gallery: [],
+        aboutDesc: (
+            <>
+                <strong>AI-powered error explainer and fixer right in your VS Code.</strong><br /><br />
+                CodeDoctor is a smart VS Code extension that lives in your sidebar, monitors your active files, and uses AI to explain confusing errors and generate one-click fixes instantly.
+            </>
+        ),
+        featuresTitle: 'Extension Features',
+        featuresDesc: 'Boost your coding speed with AI-assisted debugging.',
+        features: [
+            {
+                icon: <Code size={24} />,
+                title: 'Active File Error Tracking',
+                desc: 'Automatically lists all errors in your currently active file.'
+            },
+            {
+                icon: <Sparkles size={24} />,
+                title: 'AI Explain & Fix',
+                desc: 'Get human-readable explanations of complex errors and instantly apply fixes.'
+            }
+        ],
+        devStack: 'TypeScript, VS Code Extension API, Node.js\nLLM Integration'
+    },
+    lazyreadme: {
+        id: 'lazyreadme',
+        title: 'LazyReadme',
+        developer: 'Darshan Satbhai',
+        category: 'Productivity',
+        price: 'Free',
+        platform: 'VS Code Extension',
+        age: 'Dev',
+        iconUrl: '/lazyreadme/icon.jpg',
+        actionBtn: { text: 'Marketplace', link: 'https://marketplace.visualstudio.com/items?itemName=satbhai444.lazyreadme' },
+        githubLink: 'https://github.com/satbhai444/lazyreadme',
+        gallery: [],
+        aboutDesc: (
+            <>
+                <strong>Never write a README from scratch again.</strong><br /><br />
+                LazyReadme uses Google's Gemini AI to scan your project folders directly from the VS Code Explorer and generate high-quality, comprehensive README.md files with a single right-click.
+            </>
+        ),
+        featuresTitle: 'Extension Features',
+        featuresDesc: 'Focus on coding, let AI write the documentation.',
+        features: [
+            {
+                icon: <Terminal size={24} />,
+                title: 'Explorer Context Menu',
+                desc: 'Right-click any folder to instantly generate a README.'
+            },
+            {
+                icon: <FileText size={24} />,
+                title: 'Gemini AI Powered',
+                desc: 'Deeply analyzes your project structure using the latest Google Gen AI models.'
+            }
+        ],
+        devStack: 'TypeScript, VS Code Extension API, @google/genai'
     }
 };
 
