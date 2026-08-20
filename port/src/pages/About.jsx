@@ -28,12 +28,17 @@ const experience = [
     { role: "Flutter & Mobile Development", period: "2025 - Present", desc: "Building cross-platform mobile applications with Flutter, Dart, Riverpod, and Firebase — delivering production-ready apps like Tunify, SeizeFire, Lumina Fitness, and DailyDash." },
 ];
 
+const education = [
+    { role: "Bachelor's Degree in Computer Science", period: "2021 - 2025", desc: "Focusing on software engineering, data structures, and full-stack development. Building a strong foundation in modern web technologies and AI integration." },
+    { role: "Higher Secondary Education", period: "2019 - 2021", desc: "Core subjects in Mathematics and Computer Science, developing an early passion for logic architecture and programming." }
+];
+
 const About = () => {
     return (
         <div className="about-v2">
             <ParallaxBackground text1="ENGINEER" text2="INNOVATE" text3="CREATE" />
             
-            {/* ═══════ HERO SECTION ═══════ */}
+            {/* ═━═━═━═━═━═━═ HERO SECTION ═━═━═━═━═━═━═ */}
             <section className="about-hero-v2">
                 <div className="hero-v2-content">
                     <motion.h1 
@@ -76,6 +81,16 @@ const About = () => {
                         <div className="section-label">Experience Journey</div>
                     </FadeUp>
                     <ExperienceTimeline experience={experience} />
+                </div>
+            </section>
+
+            {/* ═━═━═━═━═━═━═ EDUCATION TIMELINE ═━═━═━═━═━═━═ */}
+            <section className="padding-global" style={{ paddingTop: '2rem' }}>
+                <div className="container-large">
+                    <FadeUp>
+                        <div className="section-label">Academic Background</div>
+                    </FadeUp>
+                    <ExperienceTimeline experience={education} />
                 </div>
             </section>
 
