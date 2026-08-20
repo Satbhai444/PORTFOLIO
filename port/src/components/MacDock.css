@@ -1,11 +1,12 @@
 .mac-dock-container {
-    position: fixed;
-    bottom: 25px;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    z-index: 1000;
+    position: fixed !important;
+    bottom: 25px !important;
+    top: auto !important;
+    left: 0 !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    z-index: 999999 !important;
     pointer-events: none; /* Allows clicking through the container */
 }
 

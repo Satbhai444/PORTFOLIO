@@ -140,21 +140,22 @@ const App = () => {
 
   return (
     <Router>
-      <div className={`page-wrapper ${isSelfDestructing ? 'self-destruct-active' : ''}`}>
-        <ScrollToTop />
-        <CommandPalette />
-        <WinDeckOverlay />
-        <MatrixOverlay />
-        <KonamiGame />
-        <DeveloperTerminal />
-        {/* <Navbar /> */}
+      <>
+        <div className={`page-wrapper ${isSelfDestructing ? 'self-destruct-active' : ''}`}>
+          <ScrollToTop />
+          <CommandPalette />
+          <WinDeckOverlay />
+          <MatrixOverlay />
+          <KonamiGame />
+          <DeveloperTerminal />
+          <main>
+            <AnimatedRoutes />
+          </main>
+          <Footer />
+          <BackToHome />
+        </div>
         <MacDock />
-        <main>
-          <AnimatedRoutes />
-        </main>
-        <Footer />
-        <BackToHome />
-      </div>
+      </>
     </Router>
   );
 };
