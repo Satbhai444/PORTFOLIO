@@ -69,7 +69,7 @@ const About = () => {
             {/* MARQUEE */}
             <Marquee items={marqueeItems} />
 
-            {/* ═══════ EXPERIENCE TIMELINE ═══════ */}
+            {/* ═━═━═━═━═━═━═ EXPERIENCE TIMELINE ═━═━═━═━═━═━═ */}
             <section className="padding-global">
                 <div className="container-large">
                     <FadeUp>
@@ -79,7 +79,72 @@ const About = () => {
                 </div>
             </section>
 
-            {/* ═══════ SKILLS / TECH STACK BENTO ═══════ */}
+            {/* ═━═━═━═━═━═━═ DESIGN PHILOSOPHY ═━═━═━═━═━═━═ */}
+            <section className="padding-global padding-section-large" style={{ paddingTop: '2rem', paddingBottom: '4rem' }}>
+                <div className="container-large">
+                    <div className="philosophy-grid" style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                        gap: '2rem'
+                    }}>
+                        <FadeUp delay={0.1}>
+                            <div className="phil-card" style={{ padding: '2rem', background: 'rgba(255,255,255,0.02)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)', height: '100%' }}>
+                                <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#fff' }}>Clean Architecture</h3>
+                                <p style={{ color: '#888', lineHeight: '1.6' }}>I believe in writing code that is as beautiful under the hood as it is on the screen. Modular, scalable, and maintainable systems are the foundation of my work.</p>
+                            </div>
+                        </FadeUp>
+                        <FadeUp delay={0.2}>
+                            <div className="phil-card" style={{ padding: '2rem', background: 'rgba(255,255,255,0.02)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)', height: '100%' }}>
+                                <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#fff' }}>Performance First</h3>
+                                <p style={{ color: '#888', lineHeight: '1.6' }}>Latency is the enemy of immersion. I optimize bundle sizes, leverage WebGL where necessary, and ensure that every interaction hits a smooth 60fps.</p>
+                            </div>
+                        </FadeUp>
+                        <FadeUp delay={0.3}>
+                            <div className="phil-card" style={{ padding: '2rem', background: 'rgba(255,255,255,0.02)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)', height: '100%' }}>
+                                <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#fff' }}>AI-Native Mindset</h3>
+                                <p style={{ color: '#888', lineHeight: '1.6' }}>I don't just use AI; I orchestrate it. By deeply integrating LLMs into my workflow, I can prototype, iterate, and deploy at a velocity that traditional methods cannot match.</p>
+                            </div>
+                        </FadeUp>
+                    </div>
+                </div>
+            </section>
+
+            {/* ═━═━═━═━═━═━═ MY WORKSPACE / HARDWARE ═━═━═━═━═━═━═ */}
+            <section className="padding-global padding-section-large" style={{ paddingTop: '2rem', paddingBottom: '4rem' }}>
+                <div className="container-large">
+                    <FadeUp>
+                        <div className="section-label">My Setup & Gear</div>
+                    </FadeUp>
+                    <div className="workspace-grid" style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                        gap: '1rem',
+                        marginTop: '2rem'
+                    }}>
+                        {[
+                            { name: 'VS Code & Cursor', type: 'Primary Editors' },
+                            { name: 'MacBook & Windows', type: 'Cross-Platform Dev' },
+                            { name: 'GitHub Copilot / Gemini', type: 'AI Assistants' },
+                            { name: 'Mechanical Keyboard', type: 'Daily Driver' },
+                        ].map((gear, i) => (
+                            <FadeUp delay={i * 0.1} key={i}>
+                                <div style={{
+                                    padding: '1.5rem',
+                                    border: '1px solid rgba(255,255,255,0.1)',
+                                    borderRadius: '12px',
+                                    background: 'rgba(0,0,0,0.5)',
+                                    textAlign: 'center'
+                                }}>
+                                    <h4 style={{ color: '#fff', marginBottom: '0.5rem', fontSize: '1.1rem' }}>{gear.name}</h4>
+                                    <span style={{ color: '#666', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1px' }}>{gear.type}</span>
+                                </div>
+                            </FadeUp>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* ═━═━═━═━═━═━═ SKILLS / TECH STACK BENTO ═━═━═━═━═━═━═ */}
             <section className="bento-section padding-global padding-section-large" style={{ paddingTop: 0 }}>
                 <div className="container-large">
                     <FadeUp>
