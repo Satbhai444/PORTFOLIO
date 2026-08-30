@@ -35,20 +35,20 @@
     backdrop-filter: blur(10px);
 }
 
-.input-group {
+.gb-input-group {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
 
-.input-group label {
+.gb-input-group label {
     font-size: 0.9rem;
     font-weight: 600;
     color: #ccc;
 }
 
-.input-group input,
-.input-group textarea {
+.gb-input-group input,
+.gb-input-group textarea {
     background: rgba(0, 0, 0, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
@@ -59,14 +59,14 @@
     transition: all 0.3s ease;
 }
 
-.input-group input:focus,
-.input-group textarea:focus {
+.gb-input-group input:focus,
+.gb-input-group textarea:focus {
     outline: none;
     border-color: #fff;
     background: rgba(0, 0, 0, 0.8);
 }
 
-.input-group textarea {
+.gb-input-group textarea {
     min-height: 100px;
     resize: vertical;
 }

@@ -63,7 +63,7 @@ const Guestbook = () => {
 
             <ScrollReveal delay={0.1}>
                 <form className="guestbook-form" onSubmit={handleSubmit}>
-                    <div className="input-group">
+                    <div className="gb-input-group">
                         <label htmlFor="name">Your Name</label>
                         <input 
                             id="name"
@@ -75,7 +75,7 @@ const Guestbook = () => {
                             required
                         />
                     </div>
-                    <div className="input-group">
+                    <div className="gb-input-group">
                         <label htmlFor="message">Message</label>
                         <textarea 
                             id="message"
