@@ -55,11 +55,11 @@ function AnimatedRoutes() {
       */}
       <motion.div
         key={`content-${location.pathname}`}
-        initial={{ opacity: 0, y: 20, scale: 0.98, filter: 'blur(10px)' }}
-        animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-        exit={{ opacity: 0, y: -20, scale: 0.98, filter: 'blur(10px)' }}
-        transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        style={{ width: '100%', minHeight: '100vh' }}
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -15 }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+        style={{ width: '100%', minHeight: '100vh', willChange: 'opacity, transform' }}
       >
         <Routes location={location}>
           <Route path="/" element={<Home />} />
