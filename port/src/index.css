@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
-  --bg-dark: #101214;
+  --bg-dark: #000000;
   --bg-light: #ffffff;
   --text-white: #ffffff;
   --text-black: #000000;
@@ -307,16 +307,4 @@ html.invert-reality canvas {
     filter: invert(1) hue-rotate(180deg);
 }
 
-/* ═══════ PREMIUM FILM GRAIN NOISE ═══════ */
-body::after {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-}
+/* Film grain noise removed by user request */
