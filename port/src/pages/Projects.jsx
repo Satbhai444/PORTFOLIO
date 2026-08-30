@@ -345,17 +345,6 @@ const Projects = () => {
                                 </div>
                             </div>
                         ))}
-
-                        {/* Dummy Upcoming Project */}
-                        <div className="ps-suggestion-card interactive" style={{ opacity: 0.7 }}>
-                            <div className="ps-suggestion-icon" style={{ background: '#222' }}>
-                                <Info color="#555" />
-                            </div>
-                            <div className="ps-suggestion-details">
-                                <h3>AI Chatbot Assistant</h3>
-                                <p style={{ color: '#ffbd2e' }}>Coming Soon</p>
-                            </div>
-                        </div>
                     </div>
                 </section>
                 </ScrollReveal>

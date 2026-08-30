@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, useScroll, useVelocity, useSpring, useTransform } from 'framer-motion';
-import { Home, User, Layers, Mail, Terminal, Search } from 'lucide-react';
+import { Home, User, Layers, Mail, Search, Laptop, FileText, BookOpen } from 'lucide-react';
 import './MacDock.css';
 
 const MacDock = () => {
@@ -24,6 +24,9 @@ const MacDock = () => {
         { path: '/about', icon: User, label: 'About' },
         { path: '/projects', icon: Layers, label: 'Work' },
         { path: '/contact', icon: Mail, label: 'Contact' },
+        { path: '/gear', icon: Laptop, label: 'Uses' },
+        { path: '/resume', icon: FileText, label: 'Resume' },
+        { path: '/guestbook', icon: BookOpen, label: 'Guestbook' },
     ];
 
     return (
@@ -55,16 +58,6 @@ const MacDock = () => {
 
                 <div className="dock-divider" />
 
-                {/* Developer Terminal Trigger */}
-                <div className="dock-item-wrapper" onClick={() => window.dispatchEvent(new Event('open-terminal'))} title="Terminal">
-                    <motion.div 
-                        className="dock-item interactive"
-                        whileHover={{ scale: 1.4, y: -10, rotateX: 0 }}
-                        transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-                    >
-                        <Terminal strokeWidth={1.5} size={24} />
-                    </motion.div>
-                </div>
 
                 {/* Command Palette Trigger */}
                 <div className="dock-item-wrapper" onClick={() => window.dispatchEvent(new Event('open-command-palette'))} title="Command Palette">

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaWhatsapp, FaEnvelope } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaWhatsapp, FaEnvelope, FaCoffee } from 'react-icons/fa';
 import { ArrowUpRight } from 'lucide-react';
 import './Footer.css';
 
@@ -68,6 +68,7 @@ const Footer = () => {
                             <a href="https://github.com/satbhai444" target="_blank" rel="noopener noreferrer">GitHub</a>
                             <a href="https://www.linkedin.com/in/darshan-satbhai-212600423?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                             <a href="https://www.instagram.com/darshaan_satbhai?igsh=c3BmMHdpY2Q4M2Ez" target="_blank" rel="noopener noreferrer">Instagram</a>
+                            <a href="https://buymeacoffee.com/darshansatbhai" target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
                         </div>
                     </div>
                     <div className="wf-footer-col">
@@ -90,6 +91,7 @@ const Footer = () => {
                         <a href="https://www.linkedin.com/in/darshan-satbhai-212600423?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="linkedin-hover"><FaLinkedin size={18} /></a>
                         <a href="https://www.instagram.com/darshaan_satbhai?igsh=c3BmMHdpY2Q4M2Ez" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="instagram-hover"><InstagramIcon size={18} /></a>
                         <a href="mailto:darshansatbhai38@gmail.com" aria-label="Email" className="mail-hover"><FaEnvelope size={18} /></a>
+                        <a href="https://buymeacoffee.com/darshansatbhai" target="_blank" rel="noopener noreferrer" aria-label="Buy Me a Coffee" className="bmc-hover"><FaCoffee size={18} /></a>
                     </div>
                 </div>
 

@@ -70,8 +70,8 @@ const Home = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                     >
-                        <CipherReveal text="DARSHAN" className="hollow-text interactive" /><br/>
-                        <CipherReveal text="SATBHAI" className="interactive" />
+                        <CipherReveal text="DARSHAN" className="hollow-text interactive premium-spotlight-text" /><br/>
+                        <CipherReveal text="SATBHAI" className="interactive premium-spotlight-text" />
                     </motion.h1>
                     <motion.div 
                         className="hero-v2-sub"
@@ -80,7 +80,7 @@ const Home = () => {
                         transition={{ delay: 0.8, duration: 1 }}
                     >
                         <p>Creative Developer • Prompt Engineer</p>
-                        <ArrowDown className="scroll-indicator" />
+                        <ArrowDown className="scroll-indicator" style={{ marginTop: '2rem' }} />
                     </motion.div>
                 </motion.div>
             </section>

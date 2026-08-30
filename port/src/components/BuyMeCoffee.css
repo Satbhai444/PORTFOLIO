@@ -1,0 +1,147 @@
+/* =============================================
+   BUY ME A COFFEE — FLOATING BUTTON
+   ============================================= */
+
+.bmc-floating-btn {
+    position: fixed;
+    bottom: 100px;
+    right: 24px;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 14px;
+    background: linear-gradient(135deg, #FFDD00 0%, #FFC800 50%, #FFB800 100%);
+    border-radius: 50px;
+    box-shadow:
+        0 4px 20px rgba(255, 221, 0, 0.3),
+        0 0 0 1px rgba(255, 221, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    text-decoration: none;
+    cursor: pointer;
+    overflow: visible;
+    transition: box-shadow 0.4s ease, background 0.4s ease;
+}
+
+.bmc-floating-btn:hover {
+    box-shadow:
+        0 6px 30px rgba(255, 221, 0, 0.5),
+        0 0 0 1px rgba(255, 221, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    background: linear-gradient(135deg, #FFE53B 0%, #FFDD00 50%, #FFC800 100%);
+}
+
+/* Coffee cup icon */
+.bmc-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
+}
+
+/* Label text */
+.bmc-label {
+    font-family: 'Inter', 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #0D0C22;
+    white-space: nowrap;
+    overflow: hidden;
+    letter-spacing: -0.01em;
+}
+
+/* ─── Steam Animation ─── */
+.bmc-steam-container {
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 3px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.bmc-floating-btn:hover .bmc-steam-container {
+    opacity: 1;
+}
+
+.bmc-steam {
+    width: 3px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    animation: steamRise 1.2s ease-in-out infinite;
+}
+
+.bmc-steam-1 {
+    animation-delay: 0s;
+}
+
+.bmc-steam-2 {
+    animation-delay: 0.3s;
+    height: 18px;
+}
+
+.bmc-steam-3 {
+    animation-delay: 0.6s;
+    height: 12px;
+}
+
+@keyframes steamRise {
+    0% {
+        opacity: 0;
+        transform: translateY(0) scaleX(1);
+    }
+    30% {
+        opacity: 0.7;
+    }
+    60% {
+        opacity: 0.4;
+        transform: translateY(-12px) scaleX(1.3);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-22px) scaleX(0.6);
+    }
+}
+
+/* ─── Subtle floating animation ─── */
+.bmc-floating-btn {
+    animation: bmcFloat 4s ease-in-out infinite;
+}
+
+@keyframes bmcFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+.bmc-floating-btn:hover {
+    animation: none;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+    .bmc-floating-btn {
+        bottom: 90px;
+        right: 16px;
+        padding: 10px 12px;
+    }
+
+    .bmc-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .bmc-label {
+        font-size: 0.78rem;
+    }
+}
+
+/* Hide label expansion on mobile — just show icon */
+@media (max-width: 480px) {
+    .bmc-label {
+        display: none !important;
+    }
+}

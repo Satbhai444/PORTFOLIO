@@ -8,17 +8,19 @@ import About from './pages/About';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
+import Gear from './pages/Gear';
+import Resume from './pages/Resume';
+import Guestbook from './pages/Guestbook';
 
 // Components
 // import Navbar from './components/Navbar';
+import { SpotlightTracker } from './components/SpotlightTracker';
+import { useScrollProgress } from './hooks/useScrollProgress';
 import MacDock from './components/MacDock';
 import Footer from './components/Footer';
 import BackToHome from './components/BackToHome';
+import BuyMeCoffee from './components/BuyMeCoffee';
 import CommandPalette from './components/CommandPalette';
-import WinDeckOverlay from './components/WinDeckOverlay';
-import MatrixOverlay from './components/MatrixOverlay';
-import KonamiGame from './components/KonamiGame';
-import DeveloperTerminal from './components/DeveloperTerminal';
 
 // Styles
 import './index.css';
@@ -64,6 +66,9 @@ function AnimatedRoutes() {
           <Route path="/about" element={<About />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/gear" element={<Gear />} />
+          <Route path="/resume" element={<Resume />} />
+          <Route path="/guestbook" element={<Guestbook />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </motion.div>
@@ -94,6 +99,7 @@ function AnimatedRoutes() {
 
 const App = () => {
   const [isSelfDestructing, setIsSelfDestructing] = useState(false);
+  useScrollProgress();
 
   useEffect(() => {
     const handleSelfDestruct = () => setIsSelfDestructing(true);
@@ -140,22 +146,19 @@ const App = () => {
 
   return (
     <Router>
-      <>
+      <SpotlightTracker>
         <div className={`page-wrapper ${isSelfDestructing ? 'self-destruct-active' : ''}`}>
           <ScrollToTop />
           <CommandPalette />
-          <WinDeckOverlay />
-          <MatrixOverlay />
-          <KonamiGame />
-          <DeveloperTerminal />
           <main>
             <AnimatedRoutes />
           </main>
           <Footer />
           <BackToHome />
+          <BuyMeCoffee />
         </div>
         <MacDock />
-      </>
+      </SpotlightTracker>
     </Router>
   );
 };
