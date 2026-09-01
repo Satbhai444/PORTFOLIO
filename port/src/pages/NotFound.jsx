@@ -1,82 +1,54 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Terminal, ArrowUpRight, ShieldAlert } from 'lucide-react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { ArrowUpRight, Compass } from 'lucide-react';
+import Tilt from 'react-parallax-tilt';
 import './NotFound.css';
 
 const NotFound = () => {
-    const [text, setText] = useState('');
-    const fullText = "SYSTEM_FAILURE: REALITY_NOT_FOUND\n> ERROR_CODE: 404\n> INITIATING_RECOVERY_PROTOCOL...";
-
-    useEffect(() => {
-        let i = 0;
-        const timer = setInterval(() => {
-            setText(fullText.slice(0, i));
-            i++;
-            if (i > fullText.length) clearInterval(timer);
-        }, 50);
-        return () => clearInterval(timer);
-    }, []);
-
     return (
-        <div className="page-wrapper" style={{ backgroundColor: '#050505' }}>
-            <section className="notfound-section" style={{ height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
+        <div className="page-wrapper" style={{ backgroundColor: 'var(--bg-dark)' }}>
+            <section className="notfound-section">
                 
-                <motion.div 
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5 }}
-                    style={{ textAlign: 'center', maxWidth: '600px', width: '100%' }}
-                >
-                    <ShieldAlert size={64} color="#ff3333" style={{ margin: '0 auto 2rem auto', opacity: 0.8 }} />
-                    
-                    <h1 style={{ 
-                        fontSize: 'clamp(4rem, 15vw, 8rem)', 
-                        fontWeight: 900, 
-                        color: 'transparent',
-                        WebkitTextStroke: '2px rgba(255, 51, 51, 0.5)',
-                        margin: 0,
-                        lineHeight: 1,
-                        letterSpacing: '10px',
-                        textShadow: '0 0 20px rgba(255, 51, 51, 0.2)'
-                    }}>
-                        404
-                    </h1>
-
-                    <div style={{
-                        background: 'rgba(0,0,0,0.8)',
-                        border: '1px solid rgba(255,51,51,0.2)',
-                        padding: '1.5rem',
-                        borderRadius: '8px',
-                        fontFamily: 'monospace',
-                        color: '#ff3333',
-                        textAlign: 'left',
-                        marginTop: '2rem',
-                        minHeight: '120px',
-                        position: 'relative',
-                        overflow: 'hidden'
-                    }}>
-                        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'rgba(255,51,51,0.5)', boxShadow: '0 0 10px red', animation: 'scanline 2s linear infinite' }} />
-                        <Terminal size={16} style={{ display: 'inline', marginRight: '8px', verticalAlign: 'middle' }} />
-                        <span style={{ whiteSpace: 'pre-line' }}>{text}<span className="cursor-blink">_</span></span>
-                    </div>
+                <div className="notfound-content">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                        <Tilt tiltMaxAngleX={10} tiltMaxAngleY={10} scale={1.05} transitionSpeed={2000} className="interactive">
+                            <div className="notfound-num-wrap">
+                                <h1 className="notfound-404">404</h1>
+                                <div className="notfound-404-ghost">404</div>
+                            </div>
+                        </Tilt>
+                    </motion.div>
 
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.7, delay: 2.5 }}
-                        style={{ marginTop: '3rem' }}
+                        transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                        style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
                     >
-                        <Link to="/" className="interactive-btn interactive" style={{ border: '1px solid rgba(255,51,51,0.3)', color: '#fff' }}>
-                            REBOOT SYSTEM (HOME) <ArrowUpRight />
+                        <Compass size={32} color="var(--text-muted)" style={{ marginBottom: '1rem', opacity: 0.5 }} />
+                        <h2 style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--text-white)', marginBottom: '1rem' }}>
+                            Lost in the void
+                        </h2>
+                        <p className="notfound-desc" style={{ color: 'var(--text-muted)' }}>
+                            The page you are looking for doesn't exist, has been moved, or is temporarily unavailable. Let's get you back on track.
+                        </p>
+
+                        <Link to="/" className="notfound-btn interactive">
+                            BACK TO HOME <ArrowUpRight size={18} />
                         </Link>
                     </motion.div>
-                </motion.div>
+                </div>
 
+                {/* Background decorative elements */}
+                <div className="notfound-bg-glow"></div>
             </section>
         </div>
     );
 };
 
 export default NotFound;
-
