@@ -24,9 +24,6 @@ const MacDock = () => {
         { path: '/about', icon: User, label: 'About' },
         { path: '/projects', icon: Layers, label: 'Work' },
         { path: '/contact', icon: Mail, label: 'Contact' },
-        { path: '/gear', icon: Laptop, label: 'Uses' },
-        { path: '/resume', icon: FileText, label: 'Resume' },
-        { path: '/guestbook', icon: BookOpen, label: 'Guestbook' },
     ];
 
     return (

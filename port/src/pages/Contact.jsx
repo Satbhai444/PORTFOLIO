@@ -1,13 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { ChevronDown, ArrowUpRight } from 'lucide-react';
-import emailjs from '@emailjs/browser';
 import { Marquee } from '../components/MarqueeTilt';
 import './Contact.css';
 
-const EJS_SERVICE  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-const EJS_TEMPLATE = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-const EJS_KEY      = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+const API_BASE = import.meta.env.VITE_API_URL || '';
 
 const marqueeItems = ["Let's Talk", 'Schedule a Call', 'Start a Project', 'Get in Touch', 'Collaborate', 'Build Together', 'Hire Me', 'Work With Me'];
 
@@ -75,24 +72,28 @@ const Contact = () => {
         e.preventDefault();
         setStatus('sending');
         try {
-            await emailjs.send(
-                EJS_SERVICE,
-                EJS_TEMPLATE,
-                {
-                    name:    formData.name,
-                    email:   formData.email,
+            const res = await fetch(`${API_BASE}/api/contact`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: formData.name,
+                    email: formData.email,
                     message: formData.message,
-                    title:   'New Portfolio Contact',
-                    time:    new Date().toLocaleString(),
-                },
-                EJS_KEY
-            );
-            setStatus('success');
-            setFormData({ name: '', email: '', message: '' });
-            setTimeout(() => setStatus('idle'), 4000);
+                }),
+            });
+
+            const data = await res.json();
+
+            if (data.success) {
+                setStatus('success');
+                setFormData({ name: '', email: '', message: '' });
+                setTimeout(() => setStatus('idle'), 4000);
+            } else {
+                throw new Error(data.message || 'Failed to send');
+            }
         } catch (err) {
             setStatus('error');
-            setErrorMsg(err?.text || err?.message || 'Unknown Error');
+            setErrorMsg(err?.message || 'Unknown Error');
             setTimeout(() => { setStatus('idle'); setErrorMsg(''); }, 8000);
         }
     };

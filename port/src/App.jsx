@@ -8,9 +8,11 @@ import About from './pages/About';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
-import Gear from './pages/Gear';
-import Resume from './pages/Resume';
-import Guestbook from './pages/Guestbook';
+
+// Admin Pages
+import AdminLogin from './pages/admin/AdminLogin';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import { AdminProvider } from './context/AdminContext';
 
 // Components
 // import Navbar from './components/Navbar';
@@ -21,6 +23,7 @@ import Footer from './components/Footer';
 import BackToHome from './components/BackToHome';
 import BuyMeCoffee from './components/BuyMeCoffee';
 import CommandPalette from './components/CommandPalette';
+import CookieConsent from './components/CookieConsent';
 
 // Styles
 import './index.css';
@@ -30,6 +33,8 @@ const PAGE_TITLES = {
   '/about':    'About | Darshan Satbhai',
   '/projects': 'Projects | Darshan Satbhai',
   '/contact':  'Contact | Darshan Satbhai',
+  '/admin':    'Admin Login | Darshan Satbhai',
+  '/admin/dashboard': 'Admin Dashboard | Darshan Satbhai',
 };
 
 function ScrollToTop() {
@@ -46,6 +51,17 @@ import './components/PageTransition.css'; // Add the CSS for columns
 function AnimatedRoutes() {
   const location = useLocation();
   const columns = 5;
+  const isAdminRoute = location.pathname.startsWith('/admin');
+
+  // Admin routes don't get the portfolio chrome (dock, footer, etc.)
+  if (isAdminRoute) {
+    return (
+      <Routes location={location}>
+        <Route path="/admin" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+      </Routes>
+    );
+  }
 
   return (
     <AnimatePresence mode="wait">
@@ -66,9 +82,6 @@ function AnimatedRoutes() {
           <Route path="/about" element={<About />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/gear" element={<Gear />} />
-          <Route path="/resume" element={<Resume />} />
-          <Route path="/guestbook" element={<Guestbook />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </motion.div>
@@ -144,22 +157,39 @@ const App = () => {
     };
   }, []);
 
+  const location_hook_unavailable = null; // can't use useLocation outside Router
+
   return (
     <Router>
-      <SpotlightTracker>
-        <div className={`page-wrapper ${isSelfDestructing ? 'self-destruct-active' : ''}`}>
-          <ScrollToTop />
-          <CommandPalette />
-          <main>
-            <AnimatedRoutes />
-          </main>
-          <Footer />
-          <BackToHome />
-          <BuyMeCoffee />
-        </div>
-        <MacDock />
-      </SpotlightTracker>
+      <AdminProvider>
+        <AppContent isSelfDestructing={isSelfDestructing} />
+      </AdminProvider>
     </Router>
+  );
+};
+
+/**
+ * Separate component so we can use useLocation inside Router
+ */
+const AppContent = ({ isSelfDestructing }) => {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
+
+  return (
+    <SpotlightTracker>
+      <div className={`page-wrapper ${isSelfDestructing ? 'self-destruct-active' : ''}`}>
+        <ScrollToTop />
+        {!isAdminRoute && <CommandPalette />}
+        <main>
+          <AnimatedRoutes />
+        </main>
+        {!isAdminRoute && <Footer />}
+        {!isAdminRoute && <BackToHome />}
+        {!isAdminRoute && <BuyMeCoffee />}
+      </div>
+      {!isAdminRoute && <CookieConsent />}
+      {!isAdminRoute && <MacDock />}
+    </SpotlightTracker>
   );
 };
 
