@@ -19,9 +19,9 @@
     /* 1. Transparent Body - No grey overlay, let the filter do the work */
     background: transparent;
     
-    /* 2. Pure Lens Filter: NO BLUR at all. Just deep saturation and contrast */
-    backdrop-filter: saturate(400%) contrast(130%) brightness(0.7);
-    -webkit-backdrop-filter: saturate(400%) contrast(130%) brightness(0.7);
+    /* 2. Pure Lens Filter: Intense blur + saturation for the glass squeeze effect */
+    backdrop-filter: blur(6px) saturate(400%) contrast(130%) brightness(0.7) url(#liquid-squeeze);
+    -webkit-backdrop-filter: blur(6px) saturate(400%) contrast(130%) brightness(0.7);
     
     /* 3. Extreme Glass Curve Highlights */
     box-shadow: 
@@ -42,8 +42,8 @@
 /* 4. Fix for "Invert Reality" (Light Theme) */
 html.invert-reality .mac-dock {
     /* Make it bright *before* invert so it becomes beautifully dark/frosted *after* invert */
-    backdrop-filter: saturate(400%) contrast(130%) brightness(1.6);
-    -webkit-backdrop-filter: saturate(400%) contrast(130%) brightness(1.6);
+    backdrop-filter: blur(6px) saturate(400%) contrast(130%) brightness(1.6) url(#liquid-squeeze);
+    -webkit-backdrop-filter: blur(6px) saturate(400%) contrast(130%) brightness(1.6);
     
     /* Pre-inverted shadows: 
        White (255) becomes Black (0) after invert!
@@ -149,3 +149,77 @@ html.invert-reality .mac-dock {
         bottom: 15px;
     }
 }
+
+/* --- Custom Liquid Glass Tooltip --- */
+.dock-tooltip {
+    position: absolute;
+    top: -45px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px) scale(0.9);
+    opacity: 0;
+    pointer-events: none;
+    
+    /* Liquid Glass Effect */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: saturate(300%) blur(12px) brightness(1.2);
+    -webkit-backdrop-filter: saturate(300%) blur(12px) brightness(1.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 10px 20px rgba(0,0,0,0.5),
+        inset 0 2px 3px rgba(255, 255, 255, 0.3),
+        inset 0 -2px 3px rgba(0, 0, 0, 0.3);
+    
+    padding: 6px 14px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #ffffff;
+    white-space: nowrap;
+    letter-spacing: 0.05em;
+    
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 100;
+}
+
+/* The reflection/shine inside the tooltip */
+.dock-tooltip::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.4) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-20deg);
+    transition: all 0.5s ease;
+}
+
+.dock-item:hover .dock-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.dock-item:hover .dock-tooltip::before {
+    animation: tooltip-shine 1s ease forwards;
+}
+
+@keyframes tooltip-shine {
+    0% { left: -100%; }
+    100% { left: 200%; }
+}
+
+html.invert-reality .dock-tooltip {
+    background: rgba(0, 0, 0, 0.1);
+    color: #000;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 
+        0 10px 20px rgba(255,255,255,0.5),
+        inset 0 2px 3px rgba(0, 0, 0, 0.2),
+        inset 0 -2px 3px rgba(255, 255, 255, 0.5);
+}
+

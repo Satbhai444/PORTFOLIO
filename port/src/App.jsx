@@ -9,10 +9,7 @@ import Projects from './pages/Projects';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
 
-// Admin Pages
-import AdminLogin from './pages/admin/AdminLogin';
-import AdminDashboard from './pages/admin/AdminDashboard';
-import { AdminProvider } from './context/AdminContext';
+
 
 // Components
 // import Navbar from './components/Navbar';
@@ -24,6 +21,7 @@ import BackToHome from './components/BackToHome';
 import BuyMeCoffee from './components/BuyMeCoffee';
 import CommandPalette from './components/CommandPalette';
 import CookieConsent from './components/CookieConsent';
+import ErrorBoundary from './components/ErrorBoundary';
 
 // Styles
 import './index.css';
@@ -33,8 +31,6 @@ const PAGE_TITLES = {
   '/about':    'About | Darshan Satbhai',
   '/projects': 'Projects | Darshan Satbhai',
   '/contact':  'Contact | Darshan Satbhai',
-  '/admin':    'Admin Login | Darshan Satbhai',
-  '/admin/dashboard': 'Admin Dashboard | Darshan Satbhai',
 };
 
 function ScrollToTop() {
@@ -51,17 +47,6 @@ import './components/PageTransition.css'; // Add the CSS for columns
 function AnimatedRoutes() {
   const location = useLocation();
   const columns = 5;
-  const isAdminRoute = location.pathname.startsWith('/admin');
-
-  // Admin routes don't get the portfolio chrome (dock, footer, etc.)
-  if (isAdminRoute) {
-    return (
-      <Routes location={location}>
-        <Route path="/admin" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
-      </Routes>
-    );
-  }
 
   return (
     <AnimatePresence mode="wait">
@@ -160,11 +145,11 @@ const App = () => {
   const location_hook_unavailable = null; // can't use useLocation outside Router
 
   return (
-    <Router>
-      <AdminProvider>
+    <ErrorBoundary>
+      <Router>
         <AppContent isSelfDestructing={isSelfDestructing} />
-      </AdminProvider>
-    </Router>
+      </Router>
+    </ErrorBoundary>
   );
 };
 
@@ -173,22 +158,21 @@ const App = () => {
  */
 const AppContent = ({ isSelfDestructing }) => {
   const location = useLocation();
-  const isAdminRoute = location.pathname.startsWith('/admin');
 
   return (
     <SpotlightTracker>
       <div className={`page-wrapper ${isSelfDestructing ? 'self-destruct-active' : ''}`}>
         <ScrollToTop />
-        {!isAdminRoute && <CommandPalette />}
+        <CommandPalette />
         <main>
           <AnimatedRoutes />
         </main>
-        {!isAdminRoute && <Footer />}
-        {!isAdminRoute && <BackToHome />}
-        {!isAdminRoute && <BuyMeCoffee />}
+        <Footer />
+        <BackToHome />
+        <BuyMeCoffee />
       </div>
-      {!isAdminRoute && <CookieConsent />}
-      {!isAdminRoute && <MacDock />}
+      <CookieConsent />
+      <MacDock />
     </SpotlightTracker>
   );
 };

@@ -1,0 +1,32 @@
+.skeleton-wrapper {
+    position: relative;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.05); /* Very subtle base */
+    border-radius: var(--radius, 8px);
+}
+
+.skeleton-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    /* The "Boneyard" sweep effect - very dark, sleek shimmer */
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.08) 50%,
+        transparent 100%
+    );
+    animation: skeleton-shimmer 1.8s infinite linear;
+}
+
+@keyframes skeleton-shimmer {
+    0% {
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
