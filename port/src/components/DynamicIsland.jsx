@@ -2,7 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import { Bell, Mail, CheckCircle2, Clock, BatteryMedium, BatteryWarning, BatteryFull, Zap, Share2, Wifi, WifiOff, Terminal, GitCommit, Heart } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { Glass } from "@samasante/liquid-glass";
 import './DynamicIsland.css';
+
+const liquidOptics = {
+    strength: 0.140,
+    depth: 0.950,
+    curvature: 0.500,
+    dispersion: 0.200,
+    bend: 0.400,
+    width: 0.070,
+    intensity: 1.2,
+    thickness: 3.5,
+    specular: 1.6,
+    angle: 0,
+    glow: 0.100,
+    frost: 1,
+    brightness: 0
+};
 
 const InstagramIcon = ({ size = 18 }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -191,7 +208,7 @@ const DynamicIsland = () => {
                 onHoverEnd={() => setIsHovered(false)}
                 onClick={() => setIsHovered(!isHovered)}
             >
-                <div style={{ width: '100%', height: '100%', display: 'flex', color: '#fff', background: 'rgba(0,0,0,0.8)', borderRadius: 'inherit' }}>
+                <Glass optics={liquidOptics} style={{ width: '100%', height: '100%', display: 'flex', color: '#fff' }}>
                     <AnimatePresence mode="wait">
                     {currentState === 'idle' && (
                         <motion.div 
@@ -286,7 +303,7 @@ const DynamicIsland = () => {
                         </motion.div>
                     )}
                 </AnimatePresence>
-                </div>
+                </Glass>
             </motion.div>
         </div>
     );

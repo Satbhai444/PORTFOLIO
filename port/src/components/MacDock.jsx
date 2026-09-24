@@ -2,7 +2,24 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, useScroll, useVelocity, useSpring, useTransform } from 'framer-motion';
 import { Home, User, Layers, Mail, Search, Laptop, FileText, BookOpen } from 'lucide-react';
+import { Glass } from '@samasante/liquid-glass';
 import './MacDock.css';
+
+const liquidOptics = {
+    strength: 0.140,
+    depth: 0.950,
+    curvature: 0.500,
+    dispersion: 0.200,
+    bend: 0.400,
+    bendWidth: 0.070,
+    sheen: 1.2,
+    sheenWidth: 3.5,
+    specular: 1.6,
+    sheenAngle: 0,
+    glow: 0.100,
+    frost: 1,
+    brightness: 0
+};
 
 const MacDock = () => {
     const location = useLocation();
@@ -38,9 +55,10 @@ const MacDock = () => {
                     justifyContent: 'center'
                 }}
             >
-                <div 
+                <Glass 
                     className="mac-dock" 
-                    style={{ borderRadius: '50px', background: 'rgba(255, 255, 255, 0.1)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.2)' }}
+                    style={{ borderRadius: '50px' }}
+                    optics={liquidOptics}
                 >
                     <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: '12px', padding: '8px 16px' }}>
                     {navItems.map((item) => {
@@ -74,7 +92,7 @@ const MacDock = () => {
                     </motion.div>
                 </div>
                     </div>
-                </div>
+                </Glass>
             </motion.div>
         </div>
     );
