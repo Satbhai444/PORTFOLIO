@@ -6,19 +6,27 @@ import { Glass } from "@samasante/liquid-glass";
 import './DynamicIsland.css';
 
 const liquidOptics = {
+  refraction: {
     strength: 0.140,
     depth: 0.950,
     curvature: 0.500,
     dispersion: 0.200,
+  },
+  edge: {
     bend: 0.400,
     width: 0.070,
+  },
+  sheen: {
     intensity: 1.2,
     thickness: 3.5,
     specular: 1.6,
     angle: 0,
+  },
+  background: {
     glow: 0.100,
     frost: 1,
-    brightness: 0
+    brightness: 0,
+  }
 };
 
 const InstagramIcon = ({ size = 18 }) => (

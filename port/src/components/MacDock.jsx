@@ -6,19 +6,27 @@ import { Glass } from '@samasante/liquid-glass';
 import './MacDock.css';
 
 const liquidOptics = {
+  refraction: {
     strength: 0.140,
     depth: 0.950,
     curvature: 0.500,
     dispersion: 0.200,
+  },
+  edge: {
     bend: 0.400,
-    bendWidth: 0.070,
-    sheen: 1.2,
-    sheenWidth: 3.5,
+    width: 0.070,
+  },
+  sheen: {
+    intensity: 1.2,
+    thickness: 3.5,
     specular: 1.6,
-    sheenAngle: 0,
+    angle: 0,
+  },
+  background: {
     glow: 0.100,
     frost: 1,
-    brightness: 0
+    brightness: 0,
+  }
 };
 
 const MacDock = () => {
