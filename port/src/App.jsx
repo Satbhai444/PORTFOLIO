@@ -22,6 +22,8 @@ import BuyMeCoffee from './components/BuyMeCoffee';
 import CommandPalette from './components/CommandPalette';
 import CookieConsent from './components/CookieConsent';
 import ErrorBoundary from './components/ErrorBoundary';
+import MatrixRain from './components/MatrixRain';
+import DynamicIsland from './components/DynamicIsland';
 
 // Styles
 import './index.css';
@@ -153,6 +155,8 @@ const App = () => {
   );
 };
 
+import { ReactLenis } from '@studio-freight/react-lenis';
+
 /**
  * Separate component so we can use useLocation inside Router
  */
@@ -160,10 +164,13 @@ const AppContent = ({ isSelfDestructing }) => {
   const location = useLocation();
 
   return (
+    <ReactLenis root options={{ lerp: 0.05, smoothWheel: true }}>
     <SpotlightTracker>
       <div className={`page-wrapper ${isSelfDestructing ? 'self-destruct-active' : ''}`}>
         <ScrollToTop />
+        <DynamicIsland />
         <CommandPalette />
+        <MatrixRain />
         <main>
           <AnimatedRoutes />
         </main>
@@ -174,6 +181,7 @@ const AppContent = ({ isSelfDestructing }) => {
       <CookieConsent />
       <MacDock />
     </SpotlightTracker>
+    </ReactLenis>
   );
 };
 
