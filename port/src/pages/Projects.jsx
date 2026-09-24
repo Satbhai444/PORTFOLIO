@@ -162,6 +162,119 @@ const PROJECTS_DATA = {
             }
         ],
         devStack: 'TypeScript, VS Code Extension API, @google/genai'
+    },
+    my3dportfolio: {
+        id: 'my3dportfolio',
+        title: 'My 3D Portfolio',
+        developer: 'Darshan Satbhai',
+        category: 'Portfolio / 3D Web Experience',
+        price: 'Free',
+        platform: 'Web App',
+        age: 'E',
+        iconUrl: 'https://raw.githubusercontent.com/Satbhai444/my-3d-portfolio/main/public/logo512.png',
+        actionBtn: { text: 'View Portfolio', link: 'https://my-3d-portfolio-cyan.vercel.app/' },
+        githubLink: 'https://github.com/Satbhai444/my-3d-portfolio',
+        gallery: [
+            'https://raw.githubusercontent.com/Satbhai444/my-3d-portfolio/main/public/logo512.png'
+        ],
+        aboutDesc: (
+            <>
+                <strong>An immersive 3D web experience serving as a personal portfolio.</strong><br /><br />
+                This project features an interactive 3D room built with React Three Fiber. Users can explore the room, interact with objects to discover information, and enjoy a built-in music player and dark mode toggle.
+            </>
+        ),
+        featuresTitle: 'Key Features',
+        featuresDesc: 'Interactive elements hidden within the 3D environment.',
+        features: [
+            {
+                icon: <Sparkles size={24} />,
+                title: 'Interactive 3D Environment',
+                desc: 'Click on objects like the laptop, photoframe, or cupboard to reveal project and skills information.'
+            },
+            {
+                icon: <Zap size={24} />,
+                title: 'Dynamic Lighting & Audio',
+                desc: 'Toggle dark mode by clicking the lamp and play background music by clicking the speaker.'
+            }
+        ],
+        devStack: 'Frontend: React, @react-three/fiber, @react-three/drei, Three.js'
+    },
+    solarsystem: {
+        id: 'solarsystem',
+        title: 'Solar System Explorer',
+        developer: 'Darshan Satbhai',
+        category: '3D Visualization / Education',
+        price: 'Free',
+        platform: 'Web App',
+        age: 'E',
+        iconUrl: 'https://raw.githubusercontent.com/Satbhai444/Solar-System-Explorer/main/og-image.png',
+        actionBtn: { text: 'Explore System', link: 'https://solar-system-exploreerr.vercel.app/' },
+        githubLink: 'https://github.com/Satbhai444/Solar-System-Explorer',
+        gallery: [
+            'https://raw.githubusercontent.com/Satbhai444/Solar-System-Explorer/main/og-image.png'
+        ],
+        aboutDesc: (
+            <>
+                <strong>A stunning interactive 3D visualization of our solar system.</strong><br /><br />
+                Explore the planets, moons, and spacecraft with real orbital mechanics. Click on any celestial body to learn facts, take guided tours, and control orbit animation speeds in this educational webgl simulator.
+            </>
+        ),
+        featuresTitle: 'App Features',
+        featuresDesc: 'Discover the universe right from your browser.',
+        features: [
+            {
+                icon: <Info size={24} />,
+                title: 'Guided Tours & Planet Info',
+                desc: 'Select planets or spacecraft to view detailed facts, or sit back and take a guided tour of the solar system.'
+            },
+            {
+                icon: <Terminal size={24} />,
+                title: 'Interactive Controls',
+                desc: 'Adjust orbit speeds, toggle between light and dark themes, and share or download your current view.'
+            }
+        ],
+        devStack: 'Three.js, HTML, CSS, Vanilla JavaScript, WebGL'
+    },
+    urbanrunner: {
+        id: 'urbanrunner',
+        title: 'Urban Runner',
+        developer: 'Darshan Satbhai',
+        category: '3D Browser Game',
+        price: 'Free',
+        platform: 'Web Game',
+        age: 'E',
+        iconUrl: '/urban-runner-icon.jpg',
+        actionBtn: { text: 'Play Game', link: 'https://urban-runner-zeta.vercel.app/' },
+        githubLink: 'https://github.com/Satbhai444/urban-runner',
+        gallery: [
+            '/urban-runner-icon.jpg'
+        ],
+        aboutDesc: (
+            <>
+                <strong>A fast-paced 3D endless runner game.</strong><br /><br />
+                Built with Three.js and Rapier Physics, Urban Runner puts you in the shoes of a street runner dodging trains and collecting coins. Progress through an endlessly generated city and unlock new characters and skateboards!
+            </>
+        ),
+        featuresTitle: 'Game Mechanics',
+        featuresDesc: 'Endless fun with physics-based movement.',
+        features: [
+            {
+                icon: <Zap size={24} />,
+                title: 'Action-Packed Gameplay',
+                desc: '3-lane movement with jumping, sliding, and an unlockable skateboard shield. Difficulty increases as you survive.'
+            },
+            {
+                icon: <Lock size={24} />,
+                title: 'Progression System',
+                desc: 'Collect coins to unlock 5 unique characters and skateboards, with data persistently saved.'
+            },
+            {
+                icon: <Sparkles size={24} />,
+                title: 'Procedural Audio',
+                desc: 'Web Audio API sounds for every action (jump, slide, coin, hit) without any external audio files!'
+            }
+        ],
+        devStack: 'Frontend: Three.js, Rapier Physics (WASM), Vite, Web Audio API\nDeployment: Vercel'
     }
 };
 

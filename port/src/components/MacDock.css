@@ -11,17 +11,12 @@
 }
 
 .mac-dock {
-    display: flex;
-    align-items: flex-end;
-    gap: 12px;
-    padding: 8px 16px;
+    /* Flex is moved to inner container to prevent breaking Glass's internal DOM */
     
-    /* 1. Transparent Body - No grey overlay, let the filter do the work */
-    background: transparent;
+    /* 1. Glass Tint for Liquid Glass library */
+    background: rgba(20, 20, 20, 0.4);
     
-    /* 2. Pure Lens Filter: Intense blur + saturation for the glass squeeze effect */
-    backdrop-filter: blur(6px) saturate(400%) contrast(130%) brightness(0.7) url(#liquid-squeeze);
-    -webkit-backdrop-filter: blur(6px) saturate(400%) contrast(130%) brightness(0.7);
+    /* 2. Remove manual filters, liquid-glass will apply its own SVG filters */
     
     /* 3. Extreme Glass Curve Highlights */
     box-shadow: 
@@ -41,9 +36,8 @@
 
 /* 4. Fix for "Invert Reality" (Light Theme) */
 html.invert-reality .mac-dock {
-    /* Make it bright *before* invert so it becomes beautifully dark/frosted *after* invert */
-    backdrop-filter: blur(6px) saturate(400%) contrast(130%) brightness(1.6) url(#liquid-squeeze);
-    -webkit-backdrop-filter: blur(6px) saturate(400%) contrast(130%) brightness(1.6);
+    /* Set bright background tint for light theme */
+    background: rgba(255, 255, 255, 0.5);
     
     /* Pre-inverted shadows: 
        White (255) becomes Black (0) after invert!

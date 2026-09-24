@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, useScroll, useVelocity, useSpring, useTransform } from 'framer-motion';
 import { Home, User, Layers, Mail, Search, Laptop, FileText, BookOpen } from 'lucide-react';
+import { Glass } from '@samasante/liquid-glass';
 import './MacDock.css';
 
 const MacDock = () => {
@@ -28,24 +29,37 @@ const MacDock = () => {
 
     return (
         <div className="mac-dock-container" style={{ perspective: '800px' }}>
-            {/* SVG Filter for Liquid Squeeze/Distortion Effect */}
-            <svg style={{ position: 'absolute', width: 0, height: 0, pointerEvents: 'none' }}>
-                <filter id="liquid-squeeze">
-                    {/* Wavy liquid distortion */}
-                    <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="1" result="noise" />
-                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G" result="displaced" />
-                </filter>
-            </svg>
-
             <motion.div 
-                className="mac-dock"
+                className="mac-dock-motion-wrapper"
                 style={{ 
                     y: yOffset, 
                     rotateX: rotateX,
-                    transformStyle: 'preserve-3d'
+                    transformStyle: 'preserve-3d',
+                    display: 'flex',
+                    justifyContent: 'center'
                 }}
             >
-                {navItems.map((item) => {
+                <Glass 
+                    className="mac-dock" 
+                    style={{ borderRadius: '50px' }}
+                    optics={{
+                        strength: 0.140,
+                        depth: 0.950,
+                        curvature: 0.500,
+                        dispersion: 0.200,
+                        bend: 0.400,
+                        bendWidth: 0.070,
+                        sheen: 1.2,
+                        sheenWidth: 3.5,
+                        specular: 1.6,
+                        sheenAngle: 0,
+                        glow: 0.100,
+                        frost: 1,
+                        brightness: 0
+                    }}
+                >
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: '12px', padding: '8px 16px' }}>
+                    {navItems.map((item) => {
                     const isActive = location.pathname === item.path;
                     return (
                         <Link to={item.path} key={item.path} className="dock-item-wrapper">
@@ -75,6 +89,8 @@ const MacDock = () => {
                         <div className="dock-tooltip">Command Palette</div>
                     </motion.div>
                 </div>
+                    </div>
+                </Glass>
             </motion.div>
         </div>
     );
