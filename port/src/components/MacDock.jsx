@@ -63,10 +63,9 @@ const MacDock = () => {
                     justifyContent: 'center'
                 }}
             >
-                <Glass 
-                    className="mac-dock" 
-                    style={{ borderRadius: '50px' }}
-                    optics={liquidOptics}
+                <div 
+                    className="mac-dock glass-fallback" 
+                    style={{ borderRadius: '50px', background: 'rgba(255, 255, 255, 0.05)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.1)' }}
                 >
                     <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: '12px', padding: '8px 16px' }}>
                     {navItems.map((item) => {
@@ -100,7 +99,7 @@ const MacDock = () => {
                     </motion.div>
                 </div>
                     </div>
-                </Glass>
+                </div>
             </motion.div>
         </div>
     );
