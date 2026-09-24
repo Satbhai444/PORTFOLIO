@@ -44,6 +44,7 @@ const DynamicIsland = () => {
     const [time, setTime] = useState('');
     const [battery, setBattery] = useState({ level: null, charging: false });
     const [hearts, setHearts] = useState([]);
+    const [likeCount, setLikeCount] = useState(1200);
 
     // Global listener for dynamic island notifications
     useEffect(() => {
@@ -158,8 +159,11 @@ const DynamicIsland = () => {
 
     const currentState = notification ? 'notifying' : (isHovered ? 'hovered' : 'idle');
 
+    const formatLikes = (num) => (num / 1000).toFixed(1) + 'k';
+
     const handleHeartClick = (e) => {
         e.stopPropagation(); // prevent closing the island
+        setLikeCount(prev => prev + 1);
         const newHeart = {
             id: Date.now() + Math.random(),
             x: (Math.random() - 0.5) * 80, // random x spread
@@ -274,8 +278,9 @@ const DynamicIsland = () => {
                             <div className="di-bottom-row">
                                 <div className="di-btn-group">
                                     <a href="mailto:daarshannexaa@gmail.com" className="di-hire-btn">Hire Me</a>
-                                    <button className="di-copy-btn" onClick={handleHeartClick} title="Send Love">
+                                    <button className="di-copy-btn" onClick={handleHeartClick} title="Send Love" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                                         <Heart size={16} fill="#ff2d55" color="#ff2d55" />
+                                        <span style={{ fontSize: '11px', fontWeight: 'bold', fontFamily: 'monospace' }}>{formatLikes(likeCount)}</span>
                                     </button>
                                     <button className="di-copy-btn" onClick={handleCopyLink} title="Copy Link">
                                         <Share2 size={16} />
