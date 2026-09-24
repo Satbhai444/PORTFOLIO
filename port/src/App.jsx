@@ -164,7 +164,7 @@ const AppContent = ({ isSelfDestructing }) => {
   const location = useLocation();
 
   return (
-    <ReactLenis root options={{ lerp: 0.1, duration: 1.2, smoothWheel: true }}>
+    <ReactLenis root options={{ lerp: 0.08, smoothWheel: true }}>
     <SpotlightTracker>
       <div className={`page-wrapper ${isSelfDestructing ? 'self-destruct-active' : ''}`}>
         <ScrollToTop />

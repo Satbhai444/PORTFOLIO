@@ -176,3 +176,20 @@
     font-size: 2rem;
   }
 }
+
+/* Typing Indicator */
+.typing-dots { display: flex; gap: 4px; }
+.typing-dots .dot { 
+  width: 6px; 
+  height: 6px; 
+  background-color: #a0a0a0; 
+  border-radius: 50%; 
+  animation: typeBounce 1.4s infinite ease-in-out both; 
+}
+.typing-dots .dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dots .dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes typeBounce { 
+  0%, 80%, 100% { transform: scale(0); } 
+  40% { transform: scale(1); } 
+}

@@ -63,9 +63,19 @@ const Contact = () => {
     const [formData, setFormData] = useState({ name: '', email: '', message: '' });
     const [status, setStatus] = useState('idle');
     const [errorMsg, setErrorMsg] = useState('');
+    
+    // Typing indicator state
+    const [isTyping, setIsTyping] = useState(false);
+    const typingTimeoutRef = useRef(null);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+        
+        setIsTyping(true);
+        if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
+        typingTimeoutRef.current = setTimeout(() => {
+            setIsTyping(false);
+        }, 1200);
     };
 
     const handleSubmit = async (e) => {
@@ -160,6 +170,25 @@ const Contact = () => {
                                     <textarea name="message" value={formData.message} onChange={handleChange} required rows="4" placeholder=" " />
                                     <label>Project Details</label>
                                 </div>
+
+                                <AnimatePresence>
+                                    {isTyping && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: 10 }}
+                                            className="typing-indicator-wrapper"
+                                            style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem', color: '#a0a0a0', fontSize: '0.9rem' }}
+                                        >
+                                            <div className="typing-dots">
+                                                <span className="dot"></span>
+                                                <span className="dot"></span>
+                                                <span className="dot"></span>
+                                            </div>
+                                            Someone is typing...
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
 
                                 <button
                                     type="submit"
